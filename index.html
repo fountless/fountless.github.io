@@ -118,23 +118,27 @@
 
 <p>Next clone the Octopress project so you have a local copy and change to that directory using your Start Command Prompt with Ruby. Here is about the point where I ran into some problems.  The setup guide has you install dependencies, so you run:</p>
 
-<pre><code>gem install bundler
-bundle install
-</code></pre>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>gem install bundler
+</span><span class='line'>bundle install</span></code></pre></td></tr></table></div></figure>
+
 
 <p>But if you are lucky like me when running <code>bundle install</code> you get an error about native extensions and that you need the Development Kit.  Head on over to the <a href="https://github.com/oneclick/rubyinstaller/wiki/Development-Kit">RubyInstaller Dev Kit page</a> and follow their instructions for downloading and installing the Dev Kit. After that&rsquo;s done, change directories back to Octopress and run those two Ruby commands again, which should both complete this time.</p>
 
 <p>Following the guide, you are now ready to run the next bit <code>rake install</code> and, of course, that doesn&rsquo;t work either.  If you&rsquo;re like me and <a href="http://stackoverflow.com/q/12400185/1657324">this guy at stackoverflow</a>, you got a:</p>
 
-<pre><code>rake aborted!
-No such file or directory - git remote -v
-</code></pre>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>rake aborted!
+</span><span class='line'>No such file or directory - git remote -v</span></code></pre></td></tr></table></div></figure>
+
 
 <p>which <a href="http://stackoverflow.com/a/12401196/1657324">the question answerer points out</a> is a PATH problem. Following his link will lead to a <a href="http://stackoverflow.com/a/9793850">short and sweet description on updating your PATH</a>.  The basic problem here is that Ruby can&rsquo;t find git, and you will be updating your PATH so it can find it in the future. After the update, run that <code>rake install</code> again and it works! Hooray!</p>
 
 <p>Now jump on over to <a href="http://octopress.org/docs/deploying/github/">deploying to Github pages</a> and follow the instructions to get your Octopress pages pushed up to a Pages site.  Those instructions are perfect and caused me no problems so I won&rsquo;t bother going into them.</p>
 
-<p>One last gotcha: you will generally use the two commands listed on that page <code>rake generate</code> and <code>rake deploy</code> to generate your markdown to html and push them up to Github, but one other command you&rsquo;ll definitely want to use is <code>rake preview</code> which will mount a webserver for you to view your site before pushing it live.  <a href="http://octopress.org/docs/blogging/">The Octopress docs</a> say your webserver is mounted at <a href="http://localhost:4000,">http://localhost:4000,</a> which it is, but if it&rsquo;s late and your brain&rsquo;s not working right like mine and <a href="http://stackoverflow.com/q/17465404">this stackoverflow user&rsquo;s</a>, you may try that path exactly and wonder why nothing is showing up.  The generated files you are trying to see are in /public/ProjectName, so you will need to add your project&rsquo;s name to the URL to see the preview (a la <a href="http://localhost:4000/ProjectName">http://localhost:4000/ProjectName</a>).</p>
+<p>One last gotcha: you will generally use the two commands listed on that page <code>rake generate</code> and <code>rake deploy</code> to generate your markdown to html and push them up to Github, but one other command you&rsquo;ll definitely want to use is <code>rake preview</code> which will mount a webserver for you to view your site before pushing it live.  <a href="http://octopress.org/docs/blogging/">The Octopress docs</a> say your webserver is mounted at <a href="http://localhost:4000,">http://localhost:4000,</a> which it is, but if it&rsquo;s late and your brain&rsquo;s not working right like mine and <a href="http://stackoverflow.com/q/17465404">this stackoverflow user&rsquo;s</a>, you may try that path exactly and wonder why nothing is showing up.  If you deployed to a Github Project Page, the generated files you are trying to see are in /public/ProjectName, so you will need to add your project&rsquo;s name to the URL to see the preview (a la <a href="http://localhost:4000/ProjectName">http://localhost:4000/ProjectName</a>).</p>
 
 <p>Hope some of that helps my Windows friends out there; happy blogging!</p>
 </div>
