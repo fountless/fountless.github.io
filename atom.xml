@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[+1 to BI]]></title>
+  <link href="http://fountless.github.io/atom.xml" rel="self"/>
+  <link href="http://fountless.github.io/"/>
+  <updated>2013-11-23T02:40:17-07:00</updated>
+  <id>http://fountless.github.io/</id>
+  <author>
+    <name><![CDATA[Stu Baker]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+</feed>
