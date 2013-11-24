@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[+1 to BI]]></title>
-  <link href="http://fountless.github.io/atom.xml" rel="self"/>
+  <title><![CDATA[Category: Web | +1 to BI]]></title>
+  <link href="http://fountless.github.io/blog/categories/web/atom.xml" rel="self"/>
   <link href="http://fountless.github.io/"/>
   <updated>2013-11-23T17:05:03-07:00</updated>
   <id>http://fountless.github.io/</id>
@@ -30,21 +30,19 @@
 
 <p>Next clone the Octopress project so you have a local copy and change to that directory using your Start Command Prompt with Ruby. Here is about the point where I ran into some problems.  The setup guide has you install dependencies, so you run:</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>gem install bundler
-</span><span class='line'>bundle install</span></code></pre></td></tr></table></div></figure>
-
+<p><code>
+gem install bundler
+bundle install
+</code></p>
 
 <p>But if you are lucky like me when running <code>bundle install</code> you get an error about native extensions and that you need the Development Kit.  Head on over to the <a href="https://github.com/oneclick/rubyinstaller/wiki/Development-Kit">RubyInstaller Dev Kit page</a> and follow their instructions for downloading and installing the Dev Kit. After that&rsquo;s done, change directories back to Octopress and run those two Ruby commands again, which should both complete this time.</p>
 
 <p>Following the guide, you are now ready to run the next bit <code>rake install</code> and, of course, that doesn&rsquo;t work either.  If you&rsquo;re like me and <a href="http://stackoverflow.com/q/12400185/1657324">this guy at stackoverflow</a>, you got a:</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>rake aborted!
-</span><span class='line'>No such file or directory - git remote -v</span></code></pre></td></tr></table></div></figure>
-
+<p><code>
+rake aborted!
+No such file or directory - git remote -v
+</code></p>
 
 <p>which <a href="http://stackoverflow.com/a/12401196/1657324">the question answerer points out</a> is a PATH problem. Following his link will lead to a <a href="http://stackoverflow.com/a/9793850">short and sweet description on updating your PATH</a>.  The basic problem here is that Ruby can&rsquo;t find git, and you will be updating your PATH so it can find it in the future. After the update, run that <code>rake install</code> again and it works! Hooray!</p>
 
