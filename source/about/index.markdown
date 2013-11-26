@@ -12,7 +12,7 @@ I enjoy learning about SQL, CSS, HTML5, SQL Reporting Services, Javascript, Data
 
 A little about my monikers:
 
-- +1 to BI is a reference to both my inherent nerdliness and my goal for these writings.  Like a wizard in an RPG who can gain +1 to Intelligence, I hope something you find here helps to increase your Business Intelligence.
+- **+1 to BI** is a reference to both my inherent nerdliness and my goal for these writings.  Like a wizard in an RPG who can gain +1 to Intelligence, I hope something you find here helps to increase your Business Intelligence.
 {% pullquote %}
-- fountless is a combination of the words fount (meaning a source, origin, or starting point) with the negating suffix -less.  I like to think it means {" "without source or beginning" "} which is a concept I can really relate to, as I'll often look back and ask "how did I get here?"  I don't think many of us will be able to find a single, defining moment that started us on the path to today.  But that's okay, because the source really doesn't matter.  You are where you are today, accept it, and choose the next step you want to take right now.
+- **fountless** is a combination of the words fount (meaning a source, origin, or starting point) with the negating suffix -less.  I like to think it means {" "without source or beginning" "} which is a concept I can really relate to, as I'll often look back and ask "how did I get here?"  I don't think many of us will be able to find a single, defining moment that started us on the path to today.  But that's okay, because the source really doesn't matter.  You are where you are today, accept it, and choose the next step you want to take right now.
 {% endpullquote %}

@@ -3,7 +3,7 @@ layout: post
 title: "Getting started with Octopress: on Windows and with no Ruby experience?!"
 date: 2013-11-20 22:48:35 -0700
 comments: true
-categories: Web Dev
+categories: WebDev
 ---
 So you just found [Octopress](http://octopress.org/) where you can write in [Markdown](http://daringfireball.net/projects/markdown/syntax) and get awesome free hosting for your static html via [Github pages](http://pages.github.com/). But it's built with Ruby and you are on Windows, can you still make this work?
 
