@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Snippets | +1 to BI]]></title>
+  <link href="http://fountless.github.io/blog/categories/snippets/atom.xml" rel="self"/>
+  <link href="http://fountless.github.io/"/>
+  <updated>2013-11-26T02:05:40-07:00</updated>
+  <id>http://fountless.github.io/</id>
+  <author>
+    <name><![CDATA[Stu Baker]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Updating Data Using the Entity Framework]]></title>
+    <link href="http://fountless.github.io/blog/2013/11/24/updating-data-using-the-entity-framework/"/>
+    <updated>2013-11-24T17:47:45-07:00</updated>
+    <id>http://fountless.github.io/blog/2013/11/24/updating-data-using-the-entity-framework</id>
+    <content type="html"><![CDATA[<p>How do you update your database using C# and the Entity Framework?<sup id="fnref:1"><a href="#fn:1" rel="footnote">1</a></sup>  Basically you map an object to your database record, perform your change (be it changing a property on an update, or removing an object on a delete), and save changes to the Entity.  Here are a few examples using LINQ to map objects:<sup id="fnref:2"><a href="#fn:2" rel="footnote">2</a></sup></p>
+
+<p><code>c# with context as your Entity
+Entities context = new Entities();
+</code></p>
+
+<p>``` c# Update
+Person p = (from p in context.Person</p>
+
+<pre><code>        where p.LastName == "Rodriguez"
+        select p).FirstOrDefault();
+</code></pre>
+
+<p>p.FirstName = &ldquo;Robert&rdquo;;</p>
+
+<p>context.SaveChanges();
+```</p>
+
+<p>``` c# Delete
+Person p = (from p in context.Person</p>
+
+<pre><code>        where p.LastName == "Rodriguez"
+        select p).FirstOrDefault();
+</code></pre>
+
+<p>context.Person.DeleteObject(p);</p>
+
+<p>context.SaveChanges();
+```</p>
+
+<p>``` c# Insert
+Person p = new Person() { FirstName = &ldquo;Robert&rdquo;, LastName = &ldquo;Rodriguez&rdquo; };</p>
+
+<p>context.AddToPerson(p);</p>
+
+<p>context.SaveChanges();
+```</p>
+
+<p>Sources:</p>
+<div class="footnotes">
+<hr/>
+<ol>
+<li id="fn:1">
+<p><a href="http://www.entityframeworktutorial.net/update-entity-in-entity-framework.aspx">Update an Entity with ObjectContext</a><a href="#fnref:1" rev="footnote">&#8617;</a></p></li>
+<li id="fn:2">
+<p><a href="http://blogs.msdn.com/b/wriju/archive/2008/08/21/ado-net-entity-insert-update-and-delete.aspx">ADO.NET Entity: Insert Update and Delete</a><a href="#fnref:2" rev="footnote">&#8617;</a></p></li>
+</ol>
+</div>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Getting Into a Repeater in ASP.NET &amp; C#]]></title>
+    <link href="http://fountless.github.io/blog/2013/11/24/getting-into-repeater-asp-dot-net-c-sharp/"/>
+    <updated>2013-11-24T15:01:51-07:00</updated>
+    <id>http://fountless.github.io/blog/2013/11/24/getting-into-repeater-asp-dot-net-c-sharp</id>
+    <content type="html"><![CDATA[<p>Sometimes ASP.NET and web forms drive me crazy.  For all the time savings they offer in some areas, it is downright ridiculous how hard simple tasks can be.  Here is one way you can get to other Repeater controls from a button click inside the Repeater.</p>
+
+<p>``` aspx-cs Basic Repeater with delete button for each Repeater item
+&lt;asp:Repeater ID=&ldquo;rptPeople&rdquo; runat=&ldquo;server&rdquo;>
+  <HeaderTemplate></p>
+
+<pre><code>&lt;table&gt;
+  &lt;tr&gt;
+    &lt;th&gt;
+     People List
+    &lt;/th&gt;
+    &lt;th&gt;&lt;/th&gt;
+    &lt;th&gt;&lt;/th&gt;
+    &lt;th&gt;&lt;/th&gt;
+  &lt;/tr&gt;
+</code></pre>
+
+<p>  </HeaderTemplate>
+  <ItemTemplate></p>
+
+<pre><code>&lt;tr&gt;
+  &lt;td&gt;
+    &lt;asp:Label ID="lblPersonId" runat="server" 
+    Text='&lt;%# Eval("PersonId") %&gt;' /&gt;
+  &lt;/td&gt;
+  &lt;td&gt;
+    &lt;asp:TextBox ID="txtLastName" runat="server" 
+    Text='&lt;%# Eval("LastName") %&gt;'&gt;&lt;/asp:TextBox&gt;
+  &lt;/td&gt;
+  &lt;td&gt;
+    &lt;asp:TextBox ID="txtFirstName" runat="server" 
+    Text='&lt;%# Eval("FirstName") %&gt;'&gt;&lt;/asp:TextBox&gt;
+  &lt;/td&gt;
+  &lt;td&gt;
+    &lt;asp:Button ID="btnDeletePerson" runat="server" Text="Delete" 
+    OnClientClick="return confirm('Are you sure you want to delete?');" 
+    OnClick="btnDeletePerson_Click" /&gt;
+  &lt;/td&gt;
+&lt;/tr&gt;
+</code></pre>
+
+<p>  </ItemTemplate>
+  <FooterTemplate></p>
+
+<pre><code>&lt;/table&gt;
+</code></pre>
+
+<p>  </FooterTemplate>
+&lt;/asp:Repeater>
+```</p>
+
+<p>Now on a Delete button click, we want to remove the row (Repeater item, technically) and update our database.  So our OnClick event needs to retrieve our Label text so we can use that ID for updates.</p>
+
+<p>The easiest way to do this is to use what sent you there (i.e. your button) to get to the parent Repeater item and from there find the specific Label that holds our PersonId.<sup id="fnref:1"><a href="#fn:1" rel="footnote">1</a></sup></p>
+
+<p>``` c# OnClick event for Delete button mark:3-5
+protected void btnDeletePerson_Click(object sender, EventArgs e)
+{</p>
+
+<pre><code>Button btnDeletePerson = (Button)sender;
+RepeaterItem item = (RepeaterItem)btnDeletePerson.NamingContainer;
+Label lblPersonId = (Label)item.FindControl("lblPersonId");
+</code></pre>
+
+<p>}
+```</p>
+
+<p>There&rsquo;s also a shorthand way to do this with more casting; I like the first example as it&rsquo;s easy to tell what you&rsquo;re doing at each step, but once you&rsquo;ve got the concept down the single line of this second example is very convenient.<sup id="fnref:2"><a href="#fn:2" rel="footnote">2</a></sup></p>
+
+<p><code>c# start:3
+Label lblPersonId = (Label)((Control)sender).Parent.FindControl("lblPersonId");
+</code></p>
+
+<p>And once we&rsquo;ve got our hands on that PersonId, we can delete to our heart&rsquo;s content!</p>
+
+<p>Sources:</p>
+<div class="footnotes">
+<hr/>
+<ol>
+<li id="fn:1">
+<p><a href="http://stackoverflow.com/a/10880370/1657324">stackoverflow: Find Control in asp:repeater on button click event</a><a href="#fnref:1" rev="footnote">&#8617;</a></p></li>
+<li id="fn:2">
+<p><a href="http://www.codeproject.com/Articles/247289/In-place-editing-with-ASP-NET-Repeater">codeproject: In-place Editing with ASP.NET Repeater</a><a href="#fnref:2" rev="footnote">&#8617;</a></p></li>
+</ol>
+</div>
+
+]]></content>
+  </entry>
+  
+</feed>

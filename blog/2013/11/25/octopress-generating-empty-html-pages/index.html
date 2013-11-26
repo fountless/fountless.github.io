@@ -5,13 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Blog Archive - +1 to BI</title>
+  <title>Octopress Generating Empty Html Pages - +1 to BI</title>
   <meta name="author" content="Stu Baker">
 
   
-  <meta name="description" content="Blog Archive 2013 Octopress Generating Empty Html Pages
-Nov 25 2013 posted in WebDev Updating Data Using the Entity Framework
-Nov 24 2013 posted in &hellip;">
+  <meta name="description" content="So you probably just tried a rake generate on your Octopress blog only to end up with a blank index.html in your public folder and a few empty posts &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -20,7 +18,7 @@ Nov 24 2013 posted in &hellip;">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://fountless.github.io/blog/archives">
+  <link rel="canonical" href="http://fountless.github.io/blog/2013/11/25/octopress-generating-empty-html-pages">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="+1 to BI" type="application/atom+xml">
@@ -79,78 +77,126 @@ Nov 24 2013 posted in &hellip;">
   <div id="main">
     <div id="content">
       <div>
-<article role="article">
+<article class="hentry" role="article">
   
   <header>
-    <h1 class="entry-title">Blog Archive</h1>
+    
+      <h1 class="entry-title">Octopress Generating Empty Html Pages</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-11-25T22:05:19-07:00" pubdate data-updated="true">Nov 25<span>th</span>, 2013</time>
+        
+      </p>
     
   </header>
-  
-  <div id="blog-archives">
 
 
+<div class="entry-content"><p>So you probably just tried a <code>rake generate</code> on your Octopress blog only to end up with a blank index.html in your public folder and a few empty posts in your blog folder, ya?</p>
 
-  
-  <h2>2013</h2>
+<p>When this occurred for me, the problem happened right as I started trying out the fancy syntax highlighting for code blocks.  Posts with plain vanilla code blocks generated just fine, but as soon as I added languages for highlighting at the start of each block I saw empty posts/pages.  After many searches for almost every synonym of &lsquo;empty&rsquo; you can think of, I finally solved my problem through a combination of the following:</p>
 
-<article>
-  
-<h1><a href="/blog/2013/11/25/octopress-generating-empty-html-pages/">Octopress Generating Empty Html Pages</a></h1>
-<time datetime="2013-11-25T22:05:19-07:00" pubdate><span class='month'>Nov</span> <span class='day'>25</span> <span class='year'>2013</span></time>
+<h2>Check if Python is installed</h2>
 
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/webdev/'>WebDev</a></span>
-</footer>
+<p>&ldquo;But Octopress is in Ruby, why do I need Python?&rdquo;  Octopress uses <a href="http://pygments.org/">Pygments</a> for syntax highlighting, which is built in Python, and it uses the pygments.rb gem to use said Python file.</p>
 
+<h2>Ensure Pygments is installed in Python</h2>
 
-</article>
+<p>This was one of my problems.  I already had Python from some earlier messing around, but didn&rsquo;t know I needed to separately download Pygments and install it.  Well, ya do.  Here&rsquo;s the <a href="http://pygments.org/download/">download site</a>, or you can use some <code>easy_install</code> fanciness if you prefer.</p>
 
+<h2>Make sure your PATH for Python is set correctly</h2>
 
+<p>Another one of my problems.  I happened upon this from a <a href="http://stackoverflow.com/a/14202515/1657324">stackoverflow user having similar problems with code blocks</a>.  Here are some good instructions for <a href="http://stackoverflow.com/a/4855685/1657324">updating PATH in Windows</a> from another SO question, and yet another SO answer on <a href="http://stackoverflow.com/a/12592280/1657324">possible mistakes when updating PATH</a>.  Most useful to me: be sure to <strong>exit and restart the window you are testing in</strong>.  I didn&rsquo;t do that, and it caused a lot more headaches.</p>
 
-<article>
-  
-<h1><a href="/blog/2013/11/24/updating-data-using-the-entity-framework/">Updating Data Using the Entity Framework</a></h1>
-<time datetime="2013-11-24T17:47:45-07:00" pubdate><span class='month'>Nov</span> <span class='day'>24</span> <span class='year'>2013</span></time>
+<h2>Update pygments.rb to a newer version</h2>
 
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/snippets/'>Snippets</a></span>
-</footer>
+<pre><code>bundle update pygments.rb
+</code></pre>
 
+<p>Not sure if I really needed to do this, but one of my searches led me to this <a href="http://stackoverflow.com/a/14088936/1657324">SO answer on octopress generating blank files</a>, and figured updating pygments.rb couldn&rsquo;t hurt.  Running the above resulted in pygments.rb updating from 0.3.4 to 0.3.7.  I then updated the version in my Gemfile in the octopress main folder and was good to go.<sup id="fnref:1"><a href="#fn:1" rel="footnote">1</a></sup></p>
 
-</article>
-
-
-
-<article>
-  
-<h1><a href="/blog/2013/11/24/getting-into-repeater-asp-dot-net-c-sharp/">Getting Into a Repeater in ASP.NET &amp; C#</a></h1>
-<time datetime="2013-11-24T15:01:51-07:00" pubdate><span class='month'>Nov</span> <span class='day'>24</span> <span class='year'>2013</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/snippets/'>Snippets</a></span>
-</footer>
-
-
-</article>
-
-
-
-<article>
-  
-<h1><a href="/blog/2013/11/20/getting-started-octopress-windows-no-ruby/">Getting Started With Octopress: On Windows and With No Ruby Experience?!</a></h1>
-<time datetime="2013-11-20T22:48:35-07:00" pubdate><span class='month'>Nov</span> <span class='day'>20</span> <span class='year'>2013</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/webdev/'>WebDev</a></span>
-</footer>
-
-
-</article>
+<p>Doing all this did not initially solve my problem, because I never exited my command-line window to let my PATH do its magic.  But the next day everything was working again, and I was scratching my head (until I found that comment on closing and re-opening the window). Hopefully something here will help you with this horrible problem!</p>
+<div class="footnotes">
+<hr/>
+<ol>
+<li id="fn:1">
+<p>incidentally, I am so new to Ruby I didn&rsquo;t know how to update a Gemfile.  If you are in the same boat, just open Gemfile in a text editor to see all the gems Octopress is using and their version.  When you update a gem with <code>bundle update</code>, you download the new version but also keep a copy of the old version in your gems folder.  So to update what Octopress uses, you need to update the version number in your Gemfile<a href="#fnref:1" rev="footnote">&#8617;</a></p></li>
+</ol>
+</div>
 
 </div>
 
+
+  <footer>
+    <p class="meta">
+      
   
+
+<span class="byline author vcard">Posted by <span class="fn">Stu Baker</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-11-25T22:05:19-07:00" pubdate data-updated="true">Nov 25<span>th</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/webdev/'>WebDev</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://fountless.github.io/blog/2013/11/25/octopress-generating-empty-html-pages/" data-via="stueth" data-counturl="http://fountless.github.io/blog/2013/11/25/octopress-generating-empty-html-pages/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/11/24/updating-data-using-the-entity-framework/" title="Previous Post: Updating data using the Entity Framework">&laquo; Updating data using the Entity Framework</a>
+      
+      
+    </p>
+  </footer>
 </article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
 
 </div>
 
@@ -230,7 +276,10 @@ Nov 24 2013 posted in &hellip;">
       var disqus_shortname = 'plusonetobi';
       
         
-        var disqus_script = 'count.js';
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://fountless.github.io/blog/2013/11/25/octopress-generating-empty-html-pages/';
+        var disqus_url = 'http://fountless.github.io/blog/2013/11/25/octopress-generating-empty-html-pages/';
+        var disqus_script = 'embed.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

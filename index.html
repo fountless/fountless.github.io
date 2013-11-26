@@ -9,7 +9,7 @@
   <meta name="author" content="Stu Baker">
 
   
-  <meta name="description" content="So you just found Octopress where you can write in Markdown and get awesome free hosting for your static html via Github pages. But it&rsquo;s built &hellip;">
+  <meta name="description" content="So you probably just tried a rake generate on your Octopress blog only to end up with a blank index.html in your public folder and a few empty posts &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +78,332 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/11/25/octopress-generating-empty-html-pages/">Octopress Generating Empty Html Pages</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-11-25T22:05:19-07:00" pubdate data-updated="true">Nov 25<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>So you probably just tried a <code>rake generate</code> on your Octopress blog only to end up with a blank index.html in your public folder and a few empty posts in your blog folder, ya?</p>
+
+<p>When this occurred for me, the problem happened right as I started trying out the fancy syntax highlighting for code blocks.  Posts with plain vanilla code blocks generated just fine, but as soon as I added languages for highlighting at the start of each block I saw empty posts/pages.  After many searches for almost every synonym of &lsquo;empty&rsquo; you can think of, I finally solved my problem through a combination of the following:</p>
+
+<h2>Check if Python is installed</h2>
+
+<p>&ldquo;But Octopress is in Ruby, why do I need Python?&rdquo;  Octopress uses <a href="http://pygments.org/">Pygments</a> for syntax highlighting, which is built in Python, and it uses the pygments.rb gem to use said Python file.</p>
+
+<h2>Ensure Pygments is installed in Python</h2>
+
+<p>This was one of my problems.  I already had Python from some earlier messing around, but didn&rsquo;t know I needed to separately download Pygments and install it.  Well, ya do.  Here&rsquo;s the <a href="http://pygments.org/download/">download site</a>, or you can use some <code>easy_install</code> fanciness if you prefer.</p>
+
+<h2>Make sure your PATH for Python is set correctly</h2>
+
+<p>Another one of my problems.  I happened upon this from a <a href="http://stackoverflow.com/a/14202515/1657324">stackoverflow user having similar problems with code blocks</a>.  Here are some good instructions for <a href="http://stackoverflow.com/a/4855685/1657324">updating PATH in Windows</a> from another SO question, and yet another SO answer on <a href="http://stackoverflow.com/a/12592280/1657324">possible mistakes when updating PATH</a>.  Most useful to me: be sure to <strong>exit and restart the window you are testing in</strong>.  I didn&rsquo;t do that, and it caused a lot more headaches.</p>
+
+<h2>Update pygments.rb to a newer version</h2>
+
+<pre><code>bundle update pygments.rb
+</code></pre>
+
+<p>Not sure if I really needed to do this, but one of my searches led me to this <a href="http://stackoverflow.com/a/14088936/1657324">SO answer on octopress generating blank files</a>, and figured updating pygments.rb couldn&rsquo;t hurt.  Running the above resulted in pygments.rb updating from 0.3.4 to 0.3.7.  I then updated the version in my Gemfile in the octopress main folder and was good to go.<sup id="fnref:1"><a href="#fn:1" rel="footnote">1</a></sup></p>
+
+<p>Doing all this did not initially solve my problem, because I never exited my command-line window to let my PATH do its magic.  But the next day everything was working again, and I was scratching my head (until I found that comment on closing and re-opening the window). Hopefully something here will help you with this horrible problem!</p>
+<div class="footnotes">
+<hr/>
+<ol>
+<li id="fn:1">
+<p>incidentally, I am so new to Ruby I didn&rsquo;t know how to update a Gemfile.  If you are in the same boat, just open Gemfile in a text editor to see all the gems Octopress is using and their version.  When you update a gem with <code>bundle update</code>, you download the new version but also keep a copy of the old version in your gems folder.  So to update what Octopress uses, you need to update the version number in your Gemfile<a href="#fnref:1" rev="footnote">&#8617;</a></p></li>
+</ol>
+</div>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/11/24/updating-data-using-the-entity-framework/">Updating Data Using the Entity Framework</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-11-24T17:47:45-07:00" pubdate data-updated="true">Nov 24<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>How do you update your database using C# and the Entity Framework?<sup id="fnref:1"><a href="#fn:1" rel="footnote">1</a></sup>  Basically you map an object to your database record, perform your change (be it changing a property on an update, or removing an object on a delete), and save changes to the Entity.  Here are a few examples using LINQ to map objects:<sup id="fnref:2"><a href="#fn:2" rel="footnote">2</a></sup></p>
+
+<figure class='code'><figcaption><span>with context as your Entity</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='c#'><span class='line'><span class="n">Entities</span> <span class="n">context</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Entities</span><span class="p">();</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span>Update</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='c#'><span class='line'><span class="n">Person</span> <span class="n">p</span> <span class="p">=</span> <span class="p">(</span><span class="k">from</span> <span class="n">p</span> <span class="k">in</span> <span class="n">context</span><span class="p">.</span><span class="n">Person</span>
+</span><span class='line'>            <span class="k">where</span> <span class="n">p</span><span class="p">.</span><span class="n">LastName</span> <span class="p">==</span> <span class="s">&quot;Rodriguez&quot;</span>
+</span><span class='line'>            <span class="k">select</span> <span class="n">p</span><span class="p">).</span><span class="n">FirstOrDefault</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">p</span><span class="p">.</span><span class="n">FirstName</span> <span class="p">=</span> <span class="s">&quot;Robert&quot;</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">context</span><span class="p">.</span><span class="n">SaveChanges</span><span class="p">();</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span>Delete</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='c#'><span class='line'><span class="n">Person</span> <span class="n">p</span> <span class="p">=</span> <span class="p">(</span><span class="k">from</span> <span class="n">p</span> <span class="k">in</span> <span class="n">context</span><span class="p">.</span><span class="n">Person</span>
+</span><span class='line'>            <span class="k">where</span> <span class="n">p</span><span class="p">.</span><span class="n">LastName</span> <span class="p">==</span> <span class="s">&quot;Rodriguez&quot;</span>
+</span><span class='line'>            <span class="k">select</span> <span class="n">p</span><span class="p">).</span><span class="n">FirstOrDefault</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">context</span><span class="p">.</span><span class="n">Person</span><span class="p">.</span><span class="n">DeleteObject</span><span class="p">(</span><span class="n">p</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">context</span><span class="p">.</span><span class="n">SaveChanges</span><span class="p">();</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span>Insert</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='c#'><span class='line'><span class="n">Person</span> <span class="n">p</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Person</span><span class="p">()</span> <span class="p">{</span> <span class="n">FirstName</span> <span class="p">=</span> <span class="s">&quot;Robert&quot;</span><span class="p">,</span> <span class="n">LastName</span> <span class="p">=</span> <span class="s">&quot;Rodriguez&quot;</span> <span class="p">};</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">context</span><span class="p">.</span><span class="n">AddToPerson</span><span class="p">(</span><span class="n">p</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">context</span><span class="p">.</span><span class="n">SaveChanges</span><span class="p">();</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Sources:</p>
+<div class="footnotes">
+<hr/>
+<ol>
+<li id="fn:1">
+<p><a href="http://www.entityframeworktutorial.net/update-entity-in-entity-framework.aspx">Update an Entity with ObjectContext</a><a href="#fnref:1" rev="footnote">&#8617;</a></p></li>
+<li id="fn:2">
+<p><a href="http://blogs.msdn.com/b/wriju/archive/2008/08/21/ado-net-entity-insert-update-and-delete.aspx">ADO.NET Entity: Insert Update and Delete</a><a href="#fnref:2" rev="footnote">&#8617;</a></p></li>
+</ol>
+</div>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/11/24/getting-into-repeater-asp-dot-net-c-sharp/">Getting Into a Repeater in ASP.NET &amp; C#</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-11-24T15:01:51-07:00" pubdate data-updated="true">Nov 24<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Sometimes ASP.NET and web forms drive me crazy.  For all the time savings they offer in some areas, it is downright ridiculous how hard simple tasks can be.  Here is one way you can get to other Repeater controls from a button click inside the Repeater.</p>
+
+<figure class='code'><figcaption><span>Basic Repeater with delete button for each Repeater item</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+</pre></td><td class='code'><pre><code class='aspx-cs'><span class='line'><span class="nt">&lt;asp:Repeater</span> <span class="na">ID=</span><span class="s">&quot;rptPeople&quot;</span> <span class="na">runat=</span><span class="s">&quot;server&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;HeaderTemplate&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;table&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;tr&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;th&gt;</span>
+</span><span class='line'>         People List
+</span><span class='line'>        <span class="nt">&lt;/th&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;th&gt;&lt;/th&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;th&gt;&lt;/th&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;th&gt;&lt;/th&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;/tr&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;/HeaderTemplate&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;ItemTemplate&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;tr&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;td&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;asp:Label</span> <span class="na">ID=</span><span class="s">&quot;lblPersonId&quot;</span> <span class="na">runat=</span><span class="s">&quot;server&quot;</span>
+</span><span class='line'>        <span class="na">Text=</span><span class="s">&#39;</span><span class="nt">&lt;%#</span> <span class="n">Eval</span><span class="p">(</span><span class="s">&quot;PersonId&quot;</span><span class="p">)</span> <span class="nt">%&gt;</span>&#39; /&gt;
+</span><span class='line'>      <span class="nt">&lt;/td&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;td&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;asp:TextBox</span> <span class="na">ID=</span><span class="s">&quot;txtLastName&quot;</span> <span class="na">runat=</span><span class="s">&quot;server&quot;</span>
+</span><span class='line'>        <span class="na">Text=</span><span class="s">&#39;</span><span class="nt">&lt;%#</span> <span class="n">Eval</span><span class="p">(</span><span class="s">&quot;LastName&quot;</span><span class="p">)</span> <span class="nt">%&gt;</span>&#39;&gt;<span class="nt">&lt;/asp:TextBox&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;/td&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;td&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;asp:TextBox</span> <span class="na">ID=</span><span class="s">&quot;txtFirstName&quot;</span> <span class="na">runat=</span><span class="s">&quot;server&quot;</span>
+</span><span class='line'>        <span class="na">Text=</span><span class="s">&#39;</span><span class="nt">&lt;%#</span> <span class="n">Eval</span><span class="p">(</span><span class="s">&quot;FirstName&quot;</span><span class="p">)</span> <span class="nt">%&gt;</span>&#39;&gt;<span class="nt">&lt;/asp:TextBox&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;/td&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;td&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;asp:Button</span> <span class="na">ID=</span><span class="s">&quot;btnDeletePerson&quot;</span> <span class="na">runat=</span><span class="s">&quot;server&quot;</span> <span class="na">Text=</span><span class="s">&quot;Delete&quot;</span>
+</span><span class='line'>        <span class="na">OnClientClick=</span><span class="s">&quot;return confirm(&#39;Are you sure you want to delete?&#39;);&quot;</span>
+</span><span class='line'>        <span class="na">OnClick=</span><span class="s">&quot;btnDeletePerson_Click&quot;</span> <span class="nt">/&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;/td&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;/tr&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;/ItemTemplate&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;FooterTemplate&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;/table&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;/FooterTemplate&gt;</span>
+</span><span class='line'><span class="nt">&lt;/asp:Repeater&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now on a Delete button click, we want to remove the row (Repeater item, technically) and update our database.  So our OnClick event needs to retrieve our Label text so we can use that ID for updates.</p>
+
+<p>The easiest way to do this is to use what sent you there (i.e. your button) to get to the parent Repeater item and from there find the specific Label that holds our PersonId.<sup id="fnref:1"><a href="#fn:1" rel="footnote">1</a></sup></p>
+
+<figure class='code'><figcaption><span>OnClick event for Delete button mark:3-5</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='c#'><span class='line'><span class="k">protected</span> <span class="k">void</span> <span class="nf">btnDeletePerson_Click</span><span class="p">(</span><span class="kt">object</span> <span class="n">sender</span><span class="p">,</span> <span class="n">EventArgs</span> <span class="n">e</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="n">Button</span> <span class="n">btnDeletePerson</span> <span class="p">=</span> <span class="p">(</span><span class="n">Button</span><span class="p">)</span><span class="n">sender</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">RepeaterItem</span> <span class="n">item</span> <span class="p">=</span> <span class="p">(</span><span class="n">RepeaterItem</span><span class="p">)</span><span class="n">btnDeletePerson</span><span class="p">.</span><span class="n">NamingContainer</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">Label</span> <span class="n">lblPersonId</span> <span class="p">=</span> <span class="p">(</span><span class="n">Label</span><span class="p">)</span><span class="n">item</span><span class="p">.</span><span class="n">FindControl</span><span class="p">(</span><span class="s">&quot;lblPersonId&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>There&rsquo;s also a shorthand way to do this with more casting; I like the first example as it&rsquo;s easy to tell what you&rsquo;re doing at each step, but once you&rsquo;ve got the concept down the single line of this second example is very convenient.<sup id="fnref:2"><a href="#fn:2" rel="footnote">2</a></sup></p>
+
+<figure class='code'><figcaption><span>start:3</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='c#'><span class='line'><span class="n">Label</span> <span class="n">lblPersonId</span> <span class="p">=</span> <span class="p">(</span><span class="n">Label</span><span class="p">)((</span><span class="n">Control</span><span class="p">)</span><span class="n">sender</span><span class="p">).</span><span class="n">Parent</span><span class="p">.</span><span class="n">FindControl</span><span class="p">(</span><span class="s">&quot;lblPersonId&quot;</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>And once we&rsquo;ve got our hands on that PersonId, we can delete to our heart&rsquo;s content!</p>
+
+<p>Sources:</p>
+<div class="footnotes">
+<hr/>
+<ol>
+<li id="fn:1">
+<p><a href="http://stackoverflow.com/a/10880370/1657324">stackoverflow: Find Control in asp:repeater on button click event</a><a href="#fnref:1" rev="footnote">&#8617;</a></p></li>
+<li id="fn:2">
+<p><a href="http://www.codeproject.com/Articles/247289/In-place-editing-with-ASP-NET-Repeater">codeproject: In-place Editing with ASP.NET Repeater</a><a href="#fnref:2" rev="footnote">&#8617;</a></p></li>
+</ol>
+</div>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -160,6 +486,18 @@
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/11/25/octopress-generating-empty-html-pages/">Octopress Generating Empty Html Pages</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/11/24/updating-data-using-the-entity-framework/">Updating Data Using the Entity Framework</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/11/24/getting-into-repeater-asp-dot-net-c-sharp/">Getting Into a Repeater in ASP.NET &amp; C#</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2013/11/20/getting-started-octopress-windows-no-ruby/">Getting Started With Octopress: On Windows and With No Ruby Experience?!</a>
