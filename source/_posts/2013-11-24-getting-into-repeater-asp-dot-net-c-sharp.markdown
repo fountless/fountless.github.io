@@ -8,50 +8,38 @@ categories: Snippets
 Sometimes ASP.NET and web forms drive me crazy.  For all the time savings they offer in some areas, it is downright ridiculous how hard simple tasks can be.  Here is one way you can get to other Repeater controls from a button click inside the Repeater.
 
 ``` aspx-cs Basic Repeater with delete button for each Repeater item
-<asp:Repeater ID="rptPeople" runat="server">
-  <HeaderTemplate>
-    <table>
+<table>
+  <asp:Repeater ID="rptPeople" runat="server">
+    <ItemTemplate>
       <tr>
-        <th>
-         People List
-        </th>
-        <th></th>
-        <th></th>
-        <th></th>
+        <td>
+          <asp:Label ID="lblPersonId" runat="server" 
+          Text='<%# Eval("PersonId") %>' />
+        </td>
+        <td>
+          <asp:TextBox ID="txtLastName" runat="server" 
+          Text='<%# Eval("LastName") %>'></asp:TextBox>
+        </td>
+        <td>
+          <asp:TextBox ID="txtFirstName" runat="server" 
+          Text='<%# Eval("FirstName") %>'></asp:TextBox>
+        </td>
+        <td>
+          <asp:Button ID="btnDeletePerson" runat="server" Text="Delete" 
+          OnClientClick="return confirm('Are you sure you want to delete?');" 
+          OnClick="btnDeletePerson_Click" />
+        </td>
       </tr>
-  </HeaderTemplate>
-  <ItemTemplate>
-    <tr>
-      <td>
-        <asp:Label ID="lblPersonId" runat="server" 
-        Text='<%# Eval("PersonId") %>' />
-      </td>
-      <td>
-        <asp:TextBox ID="txtLastName" runat="server" 
-        Text='<%# Eval("LastName") %>'></asp:TextBox>
-      </td>
-      <td>
-        <asp:TextBox ID="txtFirstName" runat="server" 
-        Text='<%# Eval("FirstName") %>'></asp:TextBox>
-      </td>
-      <td>
-        <asp:Button ID="btnDeletePerson" runat="server" Text="Delete" 
-        OnClientClick="return confirm('Are you sure you want to delete?');" 
-        OnClick="btnDeletePerson_Click" />
-      </td>
-    </tr>
-  </ItemTemplate>
-  <FooterTemplate>
-    </table>
-  </FooterTemplate>
-</asp:Repeater>
+    </ItemTemplate>
+  </asp:Repeater>
+</table>
 ```
 
 Now on a Delete button click, we want to remove the row (Repeater item, technically) and update our database.  So our OnClick event needs to retrieve our Label text so we can use that ID for updates.
 
 The easiest way to do this is to use what sent you there (i.e. your button) to get to the parent Repeater item and from there find the specific Label that holds our PersonId.[^1]
 
-``` c# OnClick event for Delete button mark:3-5
+``` c# OnClick event for Delete button
 protected void btnDeletePerson_Click(object sender, EventArgs e)
 {
     Button btnDeletePerson = (Button)sender;
@@ -62,7 +50,7 @@ protected void btnDeletePerson_Click(object sender, EventArgs e)
 
 There's also a shorthand way to do this with more casting; I like the first example as it's easy to tell what you're doing at each step, but once you've got the concept down the single line of this second example is very convenient.[^2]
 
-``` c# start:3
+``` c# FindControl shorthand
 Label lblPersonId = (Label)((Control)sender).Parent.FindControl("lblPersonId");
 ```
 
