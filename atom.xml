@@ -4,7 +4,7 @@
   <title><![CDATA[+1 to BI]]></title>
   <link href="http://fountless.github.io/atom.xml" rel="self"/>
   <link href="http://fountless.github.io/"/>
-  <updated>2013-11-26T02:05:40-07:00</updated>
+  <updated>2013-12-13T01:07:04-07:00</updated>
   <id>http://fountless.github.io/</id>
   <author>
     <name><![CDATA[Stu Baker]]></name>
@@ -12,6 +12,117 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[ASP.NET Repeaters and the ItemDataBound Event]]></title>
+    <link href="http://fountless.github.io/blog/2013/12/10/asp-dot-net-repeaters-and-the-itemdatabound-event/"/>
+    <updated>2013-12-10T01:54:36-07:00</updated>
+    <id>http://fountless.github.io/blog/2013/12/10/asp-dot-net-repeaters-and-the-itemdatabound-event</id>
+    <content type="html"><![CDATA[<p>When I first started using Repeater controls in ASP.NET, I would only ever use ItemTemplate to define the specifics of each row.  After creating a few Repeaters and being forced to wrap html table elements around them, I started to think there must be a better way.  Eventually I stumbled upon examples online showing the use of HeaderTemplate and FooterTemplate for just this purpose.</p>
+
+<figure class='code'><figcaption><span>HeaderTemplate and FooterTemplate containing table elements</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+</pre></td><td class='code'><pre><code class='aspx-cs'><span class='line'><span class="nt">&lt;asp:Repeater</span> <span class="na">ID=</span><span class="s">&quot;rptPeople&quot;</span> <span class="na">runat=</span><span class="s">&quot;server&quot;</span> <span class="na">OnItemDataBound=</span><span class="s">&quot;rptPeople_ItemDataBound&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;HeaderTemplate&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;table&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;tr&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;th</span> <span class="na">colspan=</span><span class="s">&quot;4&quot;</span><span class="nt">&gt;</span>People List<span class="nt">&lt;/th&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;/tr&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;/HeaderTemplate&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;ItemTemplate&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;tr&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;td&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;asp:Label</span> <span class="na">ID=</span><span class="s">&quot;lblPersonId&quot;</span> <span class="na">runat=</span><span class="s">&quot;server&quot;</span>
+</span><span class='line'>        <span class="na">Text=</span><span class="s">&#39;</span><span class="nt">&lt;%#</span> <span class="n">Eval</span><span class="p">(</span><span class="s">&quot;PersonId&quot;</span><span class="p">)</span> <span class="nt">%&gt;</span>&#39; /&gt;
+</span><span class='line'>      <span class="nt">&lt;/td&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;td&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;asp:TextBox</span> <span class="na">ID=</span><span class="s">&quot;txtLastName&quot;</span> <span class="na">runat=</span><span class="s">&quot;server&quot;</span>
+</span><span class='line'>        <span class="na">Text=</span><span class="s">&#39;</span><span class="nt">&lt;%#</span> <span class="n">Eval</span><span class="p">(</span><span class="s">&quot;LastName&quot;</span><span class="p">)</span> <span class="nt">%&gt;</span>&#39;&gt;<span class="nt">&lt;/asp:TextBox&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;/td&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;td&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;asp:TextBox</span> <span class="na">ID=</span><span class="s">&quot;txtFirstName&quot;</span> <span class="na">runat=</span><span class="s">&quot;server&quot;</span>
+</span><span class='line'>        <span class="na">Text=</span><span class="s">&#39;</span><span class="nt">&lt;%#</span> <span class="n">Eval</span><span class="p">(</span><span class="s">&quot;FirstName&quot;</span><span class="p">)</span> <span class="nt">%&gt;</span>&#39;&gt;<span class="nt">&lt;/asp:TextBox&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;/td&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;td&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;asp:Button</span> <span class="na">ID=</span><span class="s">&quot;btnDeletePerson&quot;</span> <span class="na">runat=</span><span class="s">&quot;server&quot;</span> <span class="na">Text=</span><span class="s">&quot;Delete&quot;</span>
+</span><span class='line'>        <span class="na">OnClientClick=</span><span class="s">&quot;return confirm(&#39;Are you sure you want to delete?&#39;);&quot;</span>
+</span><span class='line'>        <span class="na">OnClick=</span><span class="s">&quot;btnDeletePerson_Click&quot;</span> <span class="nt">/&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;/td&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;/tr&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;/ItemTemplate&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;FooterTemplate&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;/table&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;/FooterTemplate&gt;</span>
+</span><span class='line'><span class="nt">&lt;/asp:Repeater&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p></p>
+
+<p>That looks a lot better, but it also created unexpected problems in the ItemDataBound event.  I&rsquo;d always assumed that ItemDataBound only fired in the ItemTemplate, as that is where you bind specific item data through each iteration of the Repeater (plus they both start with &lsquo;Item&rsquo;, obvious yes?). Little did I know that HeaderTemplate and FooterTemplate also fire the ItemDataBound event.</p>
+
+<p>So of course I added a HeaderTemplate and FooterTemplate to some legacy code and started receiving my favorite error &ldquo;object reference not set to an instance of an object.&rdquo; The problem was the original ItemDataBound event was trying to find controls and was looking in the Header which did not having said controls (causing the error).</p>
+
+<p>To fix this, you simply need to tell your code to only run when fired from the ItemTemplate<sup id="fnref:1"><a href="#fn:1" rel="footnote">1</a></sup>:</p>
+
+<figure class='code'><figcaption><span>if statement checks for ListItemTypes</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='c#'><span class='line'><span class="k">protected</span> <span class="k">void</span> <span class="nf">rptPeople_ItemDataBound</span><span class="p">(</span><span class="kt">object</span> <span class="n">sender</span><span class="p">,</span> <span class="n">RepeaterItemEventArgs</span> <span class="n">e</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="n">e</span><span class="p">.</span><span class="n">Item</span><span class="p">.</span><span class="n">ItemType</span> <span class="p">==</span> <span class="n">ListItemType</span><span class="p">.</span><span class="n">AlternatingItem</span> <span class="p">||</span> <span class="n">e</span><span class="p">.</span><span class="n">Item</span><span class="p">.</span><span class="n">ItemType</span> <span class="p">==</span> <span class="n">ListItemType</span><span class="p">.</span><span class="n">Item</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>      <span class="n">Label</span> <span class="n">lblPersonId</span> <span class="p">=</span> <span class="p">(</span><span class="n">Label</span><span class="p">)((</span><span class="n">Control</span><span class="p">)</span><span class="n">sender</span><span class="p">).</span><span class="n">Parent</span><span class="p">.</span><span class="n">FindControl</span><span class="p">(</span><span class="s">&quot;lblPersonId&quot;</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Sources:</p>
+<div class="footnotes">
+<hr/>
+<ol>
+<li id="fn:1">
+<p><a href="http://forums.asp.net/t/1495510.aspx">ASP.NET forum: Cannot find control in Repeaters ItemDataBound</a><a href="#fnref:1" rev="footnote">&#8617;</a></p></li>
+</ol>
+</div>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Octopress Generating Empty Html Pages]]></title>
@@ -164,55 +275,31 @@
 <span class='line-number'>23</span>
 <span class='line-number'>24</span>
 <span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-</pre></td><td class='code'><pre><code class='aspx-cs'><span class='line'><span class="nt">&lt;asp:Repeater</span> <span class="na">ID=</span><span class="s">&quot;rptPeople&quot;</span> <span class="na">runat=</span><span class="s">&quot;server&quot;</span><span class="nt">&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;HeaderTemplate&gt;</span>
-</span><span class='line'>    <span class="nt">&lt;table&gt;</span>
+</pre></td><td class='code'><pre><code class='aspx-cs'><span class='line'><span class="nt">&lt;table&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;asp:Repeater</span> <span class="na">ID=</span><span class="s">&quot;rptPeople&quot;</span> <span class="na">runat=</span><span class="s">&quot;server&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;ItemTemplate&gt;</span>
 </span><span class='line'>      <span class="nt">&lt;tr&gt;</span>
-</span><span class='line'>        <span class="nt">&lt;th&gt;</span>
-</span><span class='line'>         People List
-</span><span class='line'>        <span class="nt">&lt;/th&gt;</span>
-</span><span class='line'>        <span class="nt">&lt;th&gt;&lt;/th&gt;</span>
-</span><span class='line'>        <span class="nt">&lt;th&gt;&lt;/th&gt;</span>
-</span><span class='line'>        <span class="nt">&lt;th&gt;&lt;/th&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;td&gt;</span>
+</span><span class='line'>          <span class="nt">&lt;asp:Label</span> <span class="na">ID=</span><span class="s">&quot;lblPersonId&quot;</span> <span class="na">runat=</span><span class="s">&quot;server&quot;</span>
+</span><span class='line'>          <span class="na">Text=</span><span class="s">&#39;</span><span class="nt">&lt;%#</span> <span class="n">Eval</span><span class="p">(</span><span class="s">&quot;PersonId&quot;</span><span class="p">)</span> <span class="nt">%&gt;</span>&#39; /&gt;
+</span><span class='line'>        <span class="nt">&lt;/td&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;td&gt;</span>
+</span><span class='line'>          <span class="nt">&lt;asp:TextBox</span> <span class="na">ID=</span><span class="s">&quot;txtLastName&quot;</span> <span class="na">runat=</span><span class="s">&quot;server&quot;</span>
+</span><span class='line'>          <span class="na">Text=</span><span class="s">&#39;</span><span class="nt">&lt;%#</span> <span class="n">Eval</span><span class="p">(</span><span class="s">&quot;LastName&quot;</span><span class="p">)</span> <span class="nt">%&gt;</span>&#39;&gt;<span class="nt">&lt;/asp:TextBox&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;/td&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;td&gt;</span>
+</span><span class='line'>          <span class="nt">&lt;asp:TextBox</span> <span class="na">ID=</span><span class="s">&quot;txtFirstName&quot;</span> <span class="na">runat=</span><span class="s">&quot;server&quot;</span>
+</span><span class='line'>          <span class="na">Text=</span><span class="s">&#39;</span><span class="nt">&lt;%#</span> <span class="n">Eval</span><span class="p">(</span><span class="s">&quot;FirstName&quot;</span><span class="p">)</span> <span class="nt">%&gt;</span>&#39;&gt;<span class="nt">&lt;/asp:TextBox&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;/td&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;td&gt;</span>
+</span><span class='line'>          <span class="nt">&lt;asp:Button</span> <span class="na">ID=</span><span class="s">&quot;btnDeletePerson&quot;</span> <span class="na">runat=</span><span class="s">&quot;server&quot;</span> <span class="na">Text=</span><span class="s">&quot;Delete&quot;</span>
+</span><span class='line'>          <span class="na">OnClientClick=</span><span class="s">&quot;return confirm(&#39;Are you sure you want to delete?&#39;);&quot;</span>
+</span><span class='line'>          <span class="na">OnClick=</span><span class="s">&quot;btnDeletePerson_Click&quot;</span> <span class="nt">/&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;/td&gt;</span>
 </span><span class='line'>      <span class="nt">&lt;/tr&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;/HeaderTemplate&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;ItemTemplate&gt;</span>
-</span><span class='line'>    <span class="nt">&lt;tr&gt;</span>
-</span><span class='line'>      <span class="nt">&lt;td&gt;</span>
-</span><span class='line'>        <span class="nt">&lt;asp:Label</span> <span class="na">ID=</span><span class="s">&quot;lblPersonId&quot;</span> <span class="na">runat=</span><span class="s">&quot;server&quot;</span>
-</span><span class='line'>        <span class="na">Text=</span><span class="s">&#39;</span><span class="nt">&lt;%#</span> <span class="n">Eval</span><span class="p">(</span><span class="s">&quot;PersonId&quot;</span><span class="p">)</span> <span class="nt">%&gt;</span>&#39; /&gt;
-</span><span class='line'>      <span class="nt">&lt;/td&gt;</span>
-</span><span class='line'>      <span class="nt">&lt;td&gt;</span>
-</span><span class='line'>        <span class="nt">&lt;asp:TextBox</span> <span class="na">ID=</span><span class="s">&quot;txtLastName&quot;</span> <span class="na">runat=</span><span class="s">&quot;server&quot;</span>
-</span><span class='line'>        <span class="na">Text=</span><span class="s">&#39;</span><span class="nt">&lt;%#</span> <span class="n">Eval</span><span class="p">(</span><span class="s">&quot;LastName&quot;</span><span class="p">)</span> <span class="nt">%&gt;</span>&#39;&gt;<span class="nt">&lt;/asp:TextBox&gt;</span>
-</span><span class='line'>      <span class="nt">&lt;/td&gt;</span>
-</span><span class='line'>      <span class="nt">&lt;td&gt;</span>
-</span><span class='line'>        <span class="nt">&lt;asp:TextBox</span> <span class="na">ID=</span><span class="s">&quot;txtFirstName&quot;</span> <span class="na">runat=</span><span class="s">&quot;server&quot;</span>
-</span><span class='line'>        <span class="na">Text=</span><span class="s">&#39;</span><span class="nt">&lt;%#</span> <span class="n">Eval</span><span class="p">(</span><span class="s">&quot;FirstName&quot;</span><span class="p">)</span> <span class="nt">%&gt;</span>&#39;&gt;<span class="nt">&lt;/asp:TextBox&gt;</span>
-</span><span class='line'>      <span class="nt">&lt;/td&gt;</span>
-</span><span class='line'>      <span class="nt">&lt;td&gt;</span>
-</span><span class='line'>        <span class="nt">&lt;asp:Button</span> <span class="na">ID=</span><span class="s">&quot;btnDeletePerson&quot;</span> <span class="na">runat=</span><span class="s">&quot;server&quot;</span> <span class="na">Text=</span><span class="s">&quot;Delete&quot;</span>
-</span><span class='line'>        <span class="na">OnClientClick=</span><span class="s">&quot;return confirm(&#39;Are you sure you want to delete?&#39;);&quot;</span>
-</span><span class='line'>        <span class="na">OnClick=</span><span class="s">&quot;btnDeletePerson_Click&quot;</span> <span class="nt">/&gt;</span>
-</span><span class='line'>      <span class="nt">&lt;/td&gt;</span>
-</span><span class='line'>    <span class="nt">&lt;/tr&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;/ItemTemplate&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;FooterTemplate&gt;</span>
-</span><span class='line'>    <span class="nt">&lt;/table&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;/FooterTemplate&gt;</span>
-</span><span class='line'><span class="nt">&lt;/asp:Repeater&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;/ItemTemplate&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;/asp:Repeater&gt;</span>
+</span><span class='line'><span class="nt">&lt;/table&gt;</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
@@ -220,7 +307,7 @@
 
 <p>The easiest way to do this is to use what sent you there (i.e. your button) to get to the parent Repeater item and from there find the specific Label that holds our PersonId.<sup id="fnref:1"><a href="#fn:1" rel="footnote">1</a></sup></p>
 
-<figure class='code'><figcaption><span>OnClick event for Delete button mark:3-5</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span>OnClick event for Delete button</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -237,7 +324,7 @@
 
 <p>There&rsquo;s also a shorthand way to do this with more casting; I like the first example as it&rsquo;s easy to tell what you&rsquo;re doing at each step, but once you&rsquo;ve got the concept down the single line of this second example is very convenient.<sup id="fnref:2"><a href="#fn:2" rel="footnote">2</a></sup></p>
 
-<figure class='code'><figcaption><span>start:3</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span>FindControl shorthand</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='c#'><span class='line'><span class="n">Label</span> <span class="n">lblPersonId</span> <span class="p">=</span> <span class="p">(</span><span class="n">Label</span><span class="p">)((</span><span class="n">Control</span><span class="p">)</span><span class="n">sender</span><span class="p">).</span><span class="n">Parent</span><span class="p">.</span><span class="n">FindControl</span><span class="p">(</span><span class="s">&quot;lblPersonId&quot;</span><span class="p">);</span>
 </span></code></pre></td></tr></table></div></figure>
 

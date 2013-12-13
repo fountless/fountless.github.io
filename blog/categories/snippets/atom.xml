@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Snippets | +1 to BI]]></title>
   <link href="http://fountless.github.io/blog/categories/snippets/atom.xml" rel="self"/>
   <link href="http://fountless.github.io/"/>
-  <updated>2013-11-26T02:05:40-07:00</updated>
+  <updated>2013-12-13T01:07:04-07:00</updated>
   <id>http://fountless.github.io/</id>
   <author>
     <name><![CDATA[Stu Baker]]></name>
@@ -12,6 +12,88 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[ASP.NET Repeaters and the ItemDataBound Event]]></title>
+    <link href="http://fountless.github.io/blog/2013/12/10/asp-dot-net-repeaters-and-the-itemdatabound-event/"/>
+    <updated>2013-12-10T01:54:36-07:00</updated>
+    <id>http://fountless.github.io/blog/2013/12/10/asp-dot-net-repeaters-and-the-itemdatabound-event</id>
+    <content type="html"><![CDATA[<p>When I first started using Repeater controls in ASP.NET, I would only ever use ItemTemplate to define the specifics of each row.  After creating a few Repeaters and being forced to wrap html table elements around them, I started to think there must be a better way.  Eventually I stumbled upon examples online showing the use of HeaderTemplate and FooterTemplate for just this purpose.</p>
+
+<p>```aspx-cs HeaderTemplate and FooterTemplate containing table elements
+&lt;asp:Repeater ID=&ldquo;rptPeople&rdquo; runat=&ldquo;server&rdquo; OnItemDataBound=&ldquo;rptPeople_ItemDataBound&rdquo;>
+  <HeaderTemplate></p>
+
+<pre><code>&lt;table&gt;
+  &lt;tr&gt;
+    &lt;th colspan="4"&gt;People List&lt;/th&gt;
+  &lt;/tr&gt;
+</code></pre>
+
+<p>  </HeaderTemplate>
+  <ItemTemplate></p>
+
+<pre><code>&lt;tr&gt;
+  &lt;td&gt;
+    &lt;asp:Label ID="lblPersonId" runat="server" 
+    Text='&lt;%# Eval("PersonId") %&gt;' /&gt;
+  &lt;/td&gt;
+  &lt;td&gt;
+    &lt;asp:TextBox ID="txtLastName" runat="server" 
+    Text='&lt;%# Eval("LastName") %&gt;'&gt;&lt;/asp:TextBox&gt;
+  &lt;/td&gt;
+  &lt;td&gt;
+    &lt;asp:TextBox ID="txtFirstName" runat="server" 
+    Text='&lt;%# Eval("FirstName") %&gt;'&gt;&lt;/asp:TextBox&gt;
+  &lt;/td&gt;
+  &lt;td&gt;
+    &lt;asp:Button ID="btnDeletePerson" runat="server" Text="Delete" 
+    OnClientClick="return confirm('Are you sure you want to delete?');" 
+    OnClick="btnDeletePerson_Click" /&gt;
+  &lt;/td&gt;
+&lt;/tr&gt;
+</code></pre>
+
+<p>  </ItemTemplate>
+  <FooterTemplate></p>
+
+<pre><code>&lt;/table&gt;
+</code></pre>
+
+<p>  </FooterTemplate>
+&lt;/asp:Repeater>
+```</p>
+
+<p>That looks a lot better, but it also created unexpected problems in the ItemDataBound event.  I&rsquo;d always assumed that ItemDataBound only fired in the ItemTemplate, as that is where you bind specific item data through each iteration of the Repeater (plus they both start with &lsquo;Item&rsquo;, obvious yes?). Little did I know that HeaderTemplate and FooterTemplate also fire the ItemDataBound event.</p>
+
+<p>So of course I added a HeaderTemplate and FooterTemplate to some legacy code and started receiving my favorite error &ldquo;object reference not set to an instance of an object.&rdquo; The problem was the original ItemDataBound event was trying to find controls and was looking in the Header which did not having said controls (causing the error).</p>
+
+<p>To fix this, you simply need to tell your code to only run when fired from the ItemTemplate<sup id="fnref:1"><a href="#fn:1" rel="footnote">1</a></sup>:</p>
+
+<p>```c# if statement checks for ListItemTypes
+protected void rptPeople_ItemDataBound(object sender, RepeaterItemEventArgs e)
+{</p>
+
+<pre><code>if (e.Item.ItemType == ListItemType.AlternatingItem || e.Item.ItemType == ListItemType.Item)
+{
+  Label lblPersonId = (Label)((Control)sender).Parent.FindControl("lblPersonId");
+}
+</code></pre>
+
+<p>}
+```</p>
+
+<p>Sources:</p>
+<div class="footnotes">
+<hr/>
+<ol>
+<li id="fn:1">
+<p><a href="http://forums.asp.net/t/1495510.aspx">ASP.NET forum: Cannot find control in Repeaters ItemDataBound</a><a href="#fnref:1" rev="footnote">&#8617;</a></p></li>
+</ol>
+</div>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Updating Data Using the Entity Framework]]></title>
@@ -77,60 +159,42 @@ Person p = new Person() { FirstName = &ldquo;Robert&rdquo;, LastName = &ldquo;Ro
     <id>http://fountless.github.io/blog/2013/11/24/getting-into-repeater-asp-dot-net-c-sharp</id>
     <content type="html"><![CDATA[<p>Sometimes ASP.NET and web forms drive me crazy.  For all the time savings they offer in some areas, it is downright ridiculous how hard simple tasks can be.  Here is one way you can get to other Repeater controls from a button click inside the Repeater.</p>
 
-<p>``` aspx-cs Basic Repeater with delete button for each Repeater item
-&lt;asp:Repeater ID=&ldquo;rptPeople&rdquo; runat=&ldquo;server&rdquo;>
-  <HeaderTemplate></p>
+<p>``` aspx-cs Basic Repeater with delete button for each Repeater item</p>
 
-<pre><code>&lt;table&gt;
-  &lt;tr&gt;
-    &lt;th&gt;
-     People List
-    &lt;/th&gt;
-    &lt;th&gt;&lt;/th&gt;
-    &lt;th&gt;&lt;/th&gt;
-    &lt;th&gt;&lt;/th&gt;
-  &lt;/tr&gt;
-</code></pre>
+<table>
+  <asp:Repeater ID="rptPeople" runat="server">
+    <ItemTemplate>
+      <tr>
+        <td>
+          <asp:Label ID="lblPersonId" runat="server" 
+          Text='<%# Eval("PersonId") %>' />
+        </td>
+        <td>
+          <asp:TextBox ID="txtLastName" runat="server" 
+          Text='<%# Eval("LastName") %>'></asp:TextBox>
+        </td>
+        <td>
+          <asp:TextBox ID="txtFirstName" runat="server" 
+          Text='<%# Eval("FirstName") %>'></asp:TextBox>
+        </td>
+        <td>
+          <asp:Button ID="btnDeletePerson" runat="server" Text="Delete" 
+          OnClientClick="return confirm('Are you sure you want to delete?');" 
+          OnClick="btnDeletePerson_Click" />
+        </td>
+      </tr>
+    </ItemTemplate>
+  </asp:Repeater>
+</table>
 
-<p>  </HeaderTemplate>
-  <ItemTemplate></p>
 
-<pre><code>&lt;tr&gt;
-  &lt;td&gt;
-    &lt;asp:Label ID="lblPersonId" runat="server" 
-    Text='&lt;%# Eval("PersonId") %&gt;' /&gt;
-  &lt;/td&gt;
-  &lt;td&gt;
-    &lt;asp:TextBox ID="txtLastName" runat="server" 
-    Text='&lt;%# Eval("LastName") %&gt;'&gt;&lt;/asp:TextBox&gt;
-  &lt;/td&gt;
-  &lt;td&gt;
-    &lt;asp:TextBox ID="txtFirstName" runat="server" 
-    Text='&lt;%# Eval("FirstName") %&gt;'&gt;&lt;/asp:TextBox&gt;
-  &lt;/td&gt;
-  &lt;td&gt;
-    &lt;asp:Button ID="btnDeletePerson" runat="server" Text="Delete" 
-    OnClientClick="return confirm('Are you sure you want to delete?');" 
-    OnClick="btnDeletePerson_Click" /&gt;
-  &lt;/td&gt;
-&lt;/tr&gt;
-</code></pre>
-
-<p>  </ItemTemplate>
-  <FooterTemplate></p>
-
-<pre><code>&lt;/table&gt;
-</code></pre>
-
-<p>  </FooterTemplate>
-&lt;/asp:Repeater>
-```</p>
+<p>```</p>
 
 <p>Now on a Delete button click, we want to remove the row (Repeater item, technically) and update our database.  So our OnClick event needs to retrieve our Label text so we can use that ID for updates.</p>
 
 <p>The easiest way to do this is to use what sent you there (i.e. your button) to get to the parent Repeater item and from there find the specific Label that holds our PersonId.<sup id="fnref:1"><a href="#fn:1" rel="footnote">1</a></sup></p>
 
-<p>``` c# OnClick event for Delete button mark:3-5
+<p>``` c# OnClick event for Delete button
 protected void btnDeletePerson_Click(object sender, EventArgs e)
 {</p>
 
@@ -144,7 +208,7 @@ Label lblPersonId = (Label)item.FindControl("lblPersonId");
 
 <p>There&rsquo;s also a shorthand way to do this with more casting; I like the first example as it&rsquo;s easy to tell what you&rsquo;re doing at each step, but once you&rsquo;ve got the concept down the single line of this second example is very convenient.<sup id="fnref:2"><a href="#fn:2" rel="footnote">2</a></sup></p>
 
-<p><code>c# start:3
+<p><code>c# FindControl shorthand
 Label lblPersonId = (Label)((Control)sender).Parent.FindControl("lblPersonId");
 </code></p>
 
