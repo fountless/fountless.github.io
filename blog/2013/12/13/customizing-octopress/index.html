@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>+1 to BI</title>
+  <title>Customizing Octopress - +1 to BI</title>
   <meta name="author" content="Stu Baker">
 
   
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://fountless.github.io">
+  <link rel="canonical" href="http://fountless.github.io/blog/2013/12/13/customizing-octopress">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="+1 to BI" type="application/atom+xml">
@@ -76,15 +76,12 @@
 </nav>
   <div id="main">
     <div id="content">
-      <div class="blog-index">
+      <div>
+<article class="hentry" role="article">
   
-  
-  
-    <article>
-      
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2013/12/13/customizing-octopress/">Customizing Octopress</a></h1>
+      <h1 class="entry-title">Customizing Octopress</h1>
     
     
       <p class="meta">
@@ -107,7 +104,7 @@
   </header>
 
 
-  <div class="entry-content"><p>I recently made a few customizations to my Octopress environment using resources/blog articles scattered about the web; all were surprisingly easy and definitely added value.  Here are my favorites if you want to take a stab at any of these yourself:</p>
+<div class="entry-content"><p>I recently made a few customizations to my Octopress environment using resources/blog articles scattered about the web; all were surprisingly easy and definitely added value.  Here are my favorites if you want to take a stab at any of these yourself:</p>
 
 <h2><a href="http://arshad.github.io/blog/2012/05/10/recipe-hiding-posts-from-the-octopress-front-page/">Hiding specific categories of posts from the front page</a></h2>
 
@@ -189,89 +186,16 @@
 </div>
 
 </div>
-  
-  
 
 
-    </article>
-  
-  
-    <article>
+  <footer>
+    <p class="meta">
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/11/25/octopress-generating-empty-html-pages/">Octopress Generating Empty Html Pages</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
   
 
+<span class="byline author vcard">Posted by <span class="fn">Stu Baker</span></span>
 
-<time datetime="2013-11-25T22:05:19-07:00" pubdate data-updated="true">Nov 25<span>th</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>So you probably just tried a <code>rake generate</code> on your Octopress blog only to end up with a blank index.html in your public folder and a few empty posts in your blog folder, ya?</p>
-
-<p>When this occurred for me, the problem happened right as I started trying out the fancy syntax highlighting for code blocks.  Posts with plain vanilla code blocks generated just fine, but as soon as I added languages for highlighting at the start of each block I saw empty posts/pages.  After many searches for almost every synonym of &lsquo;empty&rsquo; you can think of, I finally solved my problem through a combination of the following:</p>
-
-<h2>Check if Python is installed</h2>
-
-<p>&ldquo;But Octopress is in Ruby, why do I need Python?&rdquo;  Octopress uses <a href="http://pygments.org/">Pygments</a> for syntax highlighting, which is built in Python, and it uses the pygments.rb gem to use said Python file.</p>
-
-<h2>Ensure Pygments is installed in Python</h2>
-
-<p>This was one of my problems.  I already had Python from some earlier messing around, but didn&rsquo;t know I needed to separately download Pygments and install it.  Well, ya do.  Here&rsquo;s the <a href="http://pygments.org/download/">download site</a>, or you can use some <code>easy_install</code> fanciness if you prefer.</p>
-
-<h2>Make sure your PATH for Python is set correctly</h2>
-
-<p>Another one of my problems.  I happened upon this from a <a href="http://stackoverflow.com/a/14202515/1657324">stackoverflow user having similar problems with code blocks</a>.  Here are some good instructions for <a href="http://stackoverflow.com/a/4855685/1657324">updating PATH in Windows</a> from another SO question, and yet another SO answer on <a href="http://stackoverflow.com/a/12592280/1657324">possible mistakes when updating PATH</a>.  Most useful to me: be sure to <strong>exit and restart the window you are testing in</strong>.  I didn&rsquo;t do that, and it caused a lot more headaches.</p>
-
-<h2>Update pygments.rb to a newer version</h2>
-
-<pre><code>bundle update pygments.rb
-</code></pre>
-
-<p>Not sure if I really needed to do this, but one of my searches led me to this <a href="http://stackoverflow.com/a/14088936/1657324">SO answer on octopress generating blank files</a>, and figured updating pygments.rb couldn&rsquo;t hurt.  Running the above resulted in pygments.rb updating from 0.3.4 to 0.3.7.  I then updated the version in my Gemfile in the octopress main folder and was good to go.<sup id="fnref:1"><a href="#fn:1" rel="footnote">1</a></sup></p>
-
-<p>Doing all this did not initially solve my problem, because I never exited my command-line window to let my PATH do its magic.  But the next day everything was working again, and I was scratching my head (until I found that comment on closing and re-opening the window). Hopefully something here will help you with this horrible problem!</p>
-<div class="footnotes">
-<hr/>
-<ol>
-<li id="fn:1">
-<p>incidentally, I am so new to Ruby I didn&rsquo;t know how to update a Gemfile.  If you are in the same boat, just open Gemfile in a text editor to see all the gems Octopress is using and their version.  When you update a gem with <code>bundle update</code>, you download the new version but also keep a copy of the old version in your gems folder.  So to update what Octopress uses, you need to update the version number in your Gemfile<a href="#fnref:1" rev="footnote">&#8617;</a></p></li>
-</ol>
-</div>
-
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/11/20/getting-started-octopress-windows-no-ruby/">Getting Started With Octopress: On Windows and With No Ruby Experience?!</a></h1>
-    
-    
-      <p class="meta">
-        
 
 
 
@@ -283,61 +207,46 @@
   
 
 
-<time datetime="2013-11-20T22:48:35-07:00" pubdate data-updated="true">Nov 20<span>th</span>, 2013</time>
-        
-      </p>
+<time datetime="2013-12-13T02:40:21-07:00" pubdate data-updated="true">Dec 13<span>th</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/webdev/'>WebDev</a>
+  
+</span>
+
+
+    </p>
     
-  </header>
-
-
-  <div class="entry-content"><p>So you just found <a href="http://octopress.org/">Octopress</a> where you can write in <a href="http://daringfireball.net/projects/markdown/syntax">Markdown</a> and get awesome free hosting for your static html via <a href="http://pages.github.com/">Github pages</a>. But it&rsquo;s built with Ruby and you are on Windows, can you still make this work?</p>
-
-<p>Yes, with a little patience you definitely can! I am just getting my blog up on Octopress and thought I&rsquo;d help by documenting a couple of the <em>gotchas</em> you may run into.</p>
-
-<p>Head over to the <a href="http://octopress.org/docs/setup/">Octopress setup page</a> to give you an outline of what you need to do.</p>
-
-<p>As the setup page mentions, first you&rsquo;ll need to install Git if you don&rsquo;t already have it. I recommend the <a href="http://msysgit.github.io/">msysgit</a> as it comes with a  very convenient Git Bash console. If you&rsquo;re unsure which installation settings to select, see the <a href="https://help.github.com/articles/set-up-git">setup page on github</a> and click the &ldquo;Not sure what to pick on each screen?&rdquo; info box. Then head over to the <a href="https://help.github.com/articles/generating-ssh-keys">generating SSH keys</a> page to make sure you can connect to Github.</p>
-
-<p>Back to the Octopress setup guide, the next step is to install Ruby 1.9.3 or greater. Since we&rsquo;ve got Windows awesomeness going on, you will want to get the <a href="http://rubyinstaller.org/downloads/">RubyInstaller for Windows</a>. After installation you will now have the Start Command Prompt with Ruby which you can run Ruby commands on.</p>
-
-<p>Next clone the Octopress project so you have a local copy and change to that directory using your Start Command Prompt with Ruby. Here is about the point where I ran into some problems.  The setup guide has you install dependencies, so you run:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>gem install bundler
-</span><span class='line'>bundle install</span></code></pre></td></tr></table></div></figure>
-
-
-<p>But if you are lucky like me when running <code>bundle install</code> you get an error about native extensions and that you need the Development Kit.  Head on over to the <a href="https://github.com/oneclick/rubyinstaller/wiki/Development-Kit">RubyInstaller Dev Kit page</a> and follow their instructions for downloading and installing the Dev Kit. After that&rsquo;s done, change directories back to Octopress and run those two Ruby commands again, which should both complete this time.</p>
-
-<p>Following the guide, you are now ready to run the next bit <code>rake install</code> and, of course, that doesn&rsquo;t work either.  If you&rsquo;re like me and <a href="http://stackoverflow.com/q/12400185/1657324">this guy at stackoverflow</a>, you got a:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>rake aborted!
-</span><span class='line'>No such file or directory - git remote -v</span></code></pre></td></tr></table></div></figure>
-
-
-<p>which <a href="http://stackoverflow.com/a/12401196/1657324">the question answerer points out</a> is a PATH problem. Following his link will lead to a <a href="http://stackoverflow.com/a/9793850">short and sweet description on updating your PATH</a>.  The basic problem here is that Ruby can&rsquo;t find git, and you will be updating your PATH so it can find it in the future. After the update, run that <code>rake install</code> again and it works! Hooray!</p>
-
-<p>Now jump on over to <a href="http://octopress.org/docs/deploying/github/">deploying to Github pages</a> and follow the instructions to get your Octopress pages pushed up to a Pages site.  Those instructions are perfect and caused me no problems so I won&rsquo;t bother going into them.</p>
-
-<p>One last gotcha: you will generally use the two commands listed on that page <code>rake generate</code> and <code>rake deploy</code> to generate your markdown to html and push them up to Github, but one other command you&rsquo;ll definitely want to use is <code>rake preview</code> which will mount a webserver for you to view your site before pushing it live.  <a href="http://octopress.org/docs/blogging/">The Octopress docs</a> say your webserver is mounted at <a href="http://localhost:4000,">http://localhost:4000,</a> which it is, but if it&rsquo;s late and your brain&rsquo;s not working right like mine and <a href="http://stackoverflow.com/q/17465404">this stackoverflow user&rsquo;s</a>, you may try that path exactly and wonder why nothing is showing up.  If you deployed to a Github Project Page, the generated files you are trying to see are in /public/ProjectName, so you will need to add your project&rsquo;s name to the URL to see the preview (a la <a href="http://localhost:4000/ProjectName">http://localhost:4000/ProjectName</a>).</p>
-
-<p>Hope some of that helps my Windows friends out there; happy blogging!</p>
+      <div class="sharing">
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
 </div>
-  
-  
 
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/12/10/asp-dot-net-repeaters-and-the-itemdatabound-event/" title="Previous Post: ASP.NET Repeaters and the ItemDataBound event">&laquo; ASP.NET Repeaters and the ItemDataBound event</a>
+      
+      
+    </p>
+  </footer>
+</article>
 
-    </article>
-  
-  <div class="pagination">
-    
-    <a href="/blog/archives">Blog Archives</a>
-    
-  </div>
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 </div>
+  </section>
+
+</div>
+
 <aside class="sidebar">
   
     <section>
@@ -370,7 +279,7 @@
 <section>
   <h1>GitHub Repos</h1>
   <ul id="gh_repos">
-    <li class="loading">Status updating&#8230;</li>
+    <li class="loading">Status updating...</li>
   </ul>
   
   <a href="https://github.com/fountless">@fountless</a> on GitHub
@@ -412,6 +321,7 @@
   
 </aside>
 
+
     </div>
   </div>
   <footer role="contentinfo"><p>
@@ -426,7 +336,10 @@
       var disqus_shortname = 'plusonetobi';
       
         
-        var disqus_script = 'count.js';
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://fountless.github.io/blog/2013/12/13/customizing-octopress/';
+        var disqus_url = 'http://fountless.github.io/blog/2013/12/13/customizing-octopress/';
+        var disqus_script = 'embed.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
