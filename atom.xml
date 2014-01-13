@@ -4,7 +4,7 @@
   <title><![CDATA[+1 to BI]]></title>
   <link href="http://fountless.github.io/atom.xml" rel="self"/>
   <link href="http://fountless.github.io/"/>
-  <updated>2013-12-19T01:24:46-07:00</updated>
+  <updated>2014-01-13T01:33:40-07:00</updated>
   <id>http://fountless.github.io/</id>
   <author>
     <name><![CDATA[Stu Baker]]></name>
@@ -12,6 +12,36 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[T-SQL Date Range From the Current Quarter]]></title>
+    <link href="http://fountless.github.io/blog/2013/12/19/t-sql-date-range-from-current-quarter/"/>
+    <updated>2013-12-19T01:43:38-07:00</updated>
+    <id>http://fountless.github.io/blog/2013/12/19/t-sql-date-range-from-current-quarter</id>
+    <content type="html"><![CDATA[<p>A <a href="http://stackoverflow.com/q/20672016/1657324">recent question on StackOverflow</a> got me pondering about dates and quarters.  The user wanted to return data where the date is in the current quarter.  After some Google searches, I found this great solution to <a href="http://www.sqlservercurry.com/2009/05/find-first-and-last-day-of-current.html">find the first and last day of the quarter</a> from SQL Server Curry.  From there I just added 1 day to the last day of the quarter (to make sure we are truly capturing all date/time values in the quarter) and put it all in the <code>WHERE</code> clause:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">SELECT</span> <span class="o">*</span>
+</span><span class='line'><span class="k">FROM</span> <span class="n">YourTable</span>
+</span><span class='line'><span class="k">WHERE</span> <span class="n">DateColumn</span> <span class="o">&gt;=</span> <span class="n">DATEADD</span><span class="p">(</span><span class="n">qq</span><span class="p">,</span><span class="n">DATEDIFF</span><span class="p">(</span><span class="n">qq</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">GETDATE</span><span class="p">()),</span><span class="mi">0</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">AND</span> <span class="n">DateColumn</span> <span class="o">&lt;</span> <span class="n">DATEADD</span><span class="p">(</span><span class="n">dd</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">DATEADD</span><span class="p">(</span><span class="n">qq</span><span class="p">,</span><span class="n">DATEDIFF</span><span class="p">(</span><span class="n">qq</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">GETDATE</span><span class="p">()),</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>You may be wondering &lsquo;why not just compare the quarter and year of the DateColumn to the current date?&rsquo; e.g. <code>WHERE YEAR(DateColumn) = YEAR(GETDATE()) AND DATEPART(QUARTER,DateColumn) = DATEPART(QUARTER,GETDATE())</code>  You can do that and it works fine for small datasets, but using functions on your column in a <code>WHERE</code> clause will result in a non-<a href="http://en.wikipedia.org/wiki/Sargable">sargable</a> query, meaning it can&rsquo;t take advantage of an index on <code>DateColumn</code>.  So go with the uglier, sargable query if you are looking to optimize performance.<sup id="fnref:1"><a href="#fn:1" rel="footnote">1</a></sup></p>
+<div class="footnotes">
+<hr/>
+<ol>
+<li id="fn:1">
+<p>I think sargability is a super interesting optimization topic.  In case you were curious, sargable is short for Search ARGument ABLE, and here&rsquo;s a few more articles on the topic if you would like to know more: <a href="http://msmvps.com/blogs/robfarley/archive/2010/01/22/sargable-functions-in-sql-server.aspx">Sargable functions in SQL Server by Rob Farley</a> and <a href="http://stackoverflow.com/q/799584/1657324">stackoverflow: what makes a sql statement sargable</a>.<a href="#fnref:1" rev="footnote">&#8617;</a></p></li>
+</ol>
+</div>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Customizing Octopress]]></title>

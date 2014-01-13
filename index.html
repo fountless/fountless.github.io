@@ -9,7 +9,7 @@
   <meta name="author" content="Stu Baker">
 
   
-  <meta name="description" content="I recently made a few customizations to my Octopress environment using resources/blog articles scattered about the web; all were surprisingly easy &hellip;">
+  <meta name="description" content="A recent question on StackOverflow got me pondering about dates and quarters. The user wanted to return data where the date is in the current quarter &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +78,63 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/12/19/t-sql-date-range-from-current-quarter/">T-SQL Date Range From the Current Quarter</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-19T01:43:38-07:00" pubdate data-updated="true">Dec 19<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>A <a href="http://stackoverflow.com/q/20672016/1657324">recent question on StackOverflow</a> got me pondering about dates and quarters.  The user wanted to return data where the date is in the current quarter.  After some Google searches, I found this great solution to <a href="http://www.sqlservercurry.com/2009/05/find-first-and-last-day-of-current.html">find the first and last day of the quarter</a> from SQL Server Curry.  From there I just added 1 day to the last day of the quarter (to make sure we are truly capturing all date/time values in the quarter) and put it all in the <code>WHERE</code> clause:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">SELECT</span> <span class="o">*</span>
+</span><span class='line'><span class="k">FROM</span> <span class="n">YourTable</span>
+</span><span class='line'><span class="k">WHERE</span> <span class="n">DateColumn</span> <span class="o">&gt;=</span> <span class="n">DATEADD</span><span class="p">(</span><span class="n">qq</span><span class="p">,</span><span class="n">DATEDIFF</span><span class="p">(</span><span class="n">qq</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">GETDATE</span><span class="p">()),</span><span class="mi">0</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">AND</span> <span class="n">DateColumn</span> <span class="o">&lt;</span> <span class="n">DATEADD</span><span class="p">(</span><span class="n">dd</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">DATEADD</span><span class="p">(</span><span class="n">qq</span><span class="p">,</span><span class="n">DATEDIFF</span><span class="p">(</span><span class="n">qq</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">GETDATE</span><span class="p">()),</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>You may be wondering &lsquo;why not just compare the quarter and year of the DateColumn to the current date?&rsquo; e.g. <code>WHERE YEAR(DateColumn) = YEAR(GETDATE()) AND DATEPART(QUARTER,DateColumn) = DATEPART(QUARTER,GETDATE())</code>  You can do that and it works fine for small datasets, but using functions on your column in a <code>WHERE</code> clause will result in a non-<a href="http://en.wikipedia.org/wiki/Sargable">sargable</a> query, meaning it can&rsquo;t take advantage of an index on <code>DateColumn</code>.  So go with the uglier, sargable query if you are looking to optimize performance.<sup id="fnref:1"><a href="#fn:1" rel="footnote">1</a></sup></p>
+<div class="footnotes">
+<hr/>
+<ol>
+<li id="fn:1">
+<p>I think sargability is a super interesting optimization topic.  In case you were curious, sargable is short for Search ARGument ABLE, and here&rsquo;s a few more articles on the topic if you would like to know more: <a href="http://msmvps.com/blogs/robfarley/archive/2010/01/22/sargable-functions-in-sql-server.aspx">Sargable functions in SQL Server by Rob Farley</a> and <a href="http://stackoverflow.com/q/799584/1657324">stackoverflow: what makes a sql statement sargable</a>.<a href="#fnref:1" rev="footnote">&#8617;</a></p></li>
+</ol>
+</div>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -345,6 +402,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2013/12/19/t-sql-date-range-from-current-quarter/">T-SQL Date Range From the Current Quarter</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/12/13/customizing-octopress/">Customizing Octopress</a>
       </li>
     
@@ -358,10 +419,6 @@
     
       <li class="post">
         <a href="/blog/2013/11/24/updating-data-using-the-entity-framework/">Updating Data Using the Entity Framework</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/11/24/getting-into-repeater-asp-dot-net-c-sharp/">Getting Into a Repeater in ASP.NET &amp; C#</a>
       </li>
     
   </ul>
@@ -415,7 +472,7 @@
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2013 - Stu Baker -
+  Copyright &copy; 2014 - Stu Baker -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 
