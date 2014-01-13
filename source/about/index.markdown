@@ -6,7 +6,7 @@ comments: false
 sharing: true
 footer: true
 ---
-My name is Stu Baker and I'm a web developer for the Center for E-Commerce and Business Analytics and a Business Intelligence Developer for New Dawn Technologies.
+My name is Stu Baker and I spend my working days as a web and business intelligence developer for two great companies.
 
 I enjoy learning about SQL, CSS, HTML5, SQL Reporting Services, Javascript, Data Warehousing, Big Data, and other BI topics. I also find the topic of Lean and Lean production to be incredibly interesting, and I'm always looking for ways to incorporate Lean concepts like continuous improvement and value stream mapping.
 
