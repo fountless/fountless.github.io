@@ -5,7 +5,7 @@ date: 2013-12-19 01:43:38 -0700
 comments: true
 categories: SQL
 ---
-A [recent question on StackOverflow](http://stackoverflow.com/q/20672016/1657324) got me pondering about dates and quarters.  The user wanted to return data where the date is in the current quarter.  After some Google searches, I found this great solution to [find the first and last day of the quarter](http://www.sqlservercurry.com/2009/05/find-first-and-last-day-of-current.html) from SQL Server Curry.  From there I just added 1 day to the last day of the quarter (to make sure we are truly capturing all date/time values in the quarter) and put it all in the `WHERE` clause:
+A [recent question on StackOverflow](http://stackoverflow.com/q/20672016/1657324) got me pondering about dates and quarters.  The user wanted to return data where the date is in the current quarter.  After some Google searches, I found this great solution to [find the first and last day of the quarter](http://www.sqlservercurry.com/2009/05/find-first-and-last-day-of-current.html) from SQL Server Curry.  From there I just added 1 day to the last day of the quarter (to make sure we are [truly capturing all date/time values](http://www.kebabshopblues.co.uk/2009/08/30/one-second-to-midnight-datetimes-in-sql-server-2005/) in the quarter) and put it all in the `WHERE` clause:
 
 ``` sql
 SELECT *
