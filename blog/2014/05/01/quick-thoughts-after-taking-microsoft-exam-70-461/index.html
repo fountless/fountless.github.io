@@ -5,11 +5,12 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>T-SQL Date Range From the Current Quarter - +1 to BI</title>
+  <title>Quick Thoughts After Taking Microsoft Exam 70-461 - +1 to BI</title>
   <meta name="author" content="Stu Baker">
 
   
-  <meta name="description" content="A recent question on StackOverflow got me pondering about dates and quarters. The user wanted to return data where the date is in the current quarter &hellip;">
+  <meta name="description" content="44 questions, with 2 hours provided to answer the questions and a 700 score needed to pass
+To study I primarily used the official training kit ( &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +19,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://fountless.github.io/blog/2013/12/19/t-sql-date-range-from-current-quarter">
+  <link rel="canonical" href="http://fountless.github.io/blog/2014/05/01/quick-thoughts-after-taking-microsoft-exam-70-461">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="+1 to BI" type="application/atom+xml">
@@ -81,7 +82,7 @@
   
   <header>
     
-      <h1 class="entry-title">T-SQL Date Range From the Current Quarter</h1>
+      <h1 class="entry-title">Quick Thoughts After Taking Microsoft Exam 70-461</h1>
     
     
       <p class="meta">
@@ -97,34 +98,151 @@
   
 
 
-<time datetime="2013-12-19T01:43:38-07:00" pubdate data-updated="true">Dec 19<span>th</span>, 2013</time>
+<time datetime="2014-05-01T16:02:08-06:00" pubdate data-updated="true">May 1<span>st</span>, 2014</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>A <a href="http://stackoverflow.com/q/20672016/1657324">recent question on StackOverflow</a> got me pondering about dates and quarters.  The user wanted to return data where the date is in the current quarter.  After some Google searches, I found this great solution to <a href="http://www.sqlservercurry.com/2009/05/find-first-and-last-day-of-current.html">find the first and last day of the quarter</a> from SQL Server Curry.  From there I just added 1 day to the last day of the quarter (to make sure we are <a href="http://www.kebabshopblues.co.uk/2009/08/30/one-second-to-midnight-datetimes-in-sql-server-2005/">truly capturing all date/time values</a> in the quarter) and put it all in the <code>WHERE</code> clause:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">SELECT</span> <span class="o">*</span>
-</span><span class='line'><span class="k">FROM</span> <span class="n">YourTable</span>
-</span><span class='line'><span class="k">WHERE</span> <span class="n">DateColumn</span> <span class="o">&gt;=</span> <span class="n">DATEADD</span><span class="p">(</span><span class="n">qq</span><span class="p">,</span><span class="n">DATEDIFF</span><span class="p">(</span><span class="n">qq</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">GETDATE</span><span class="p">()),</span><span class="mi">0</span><span class="p">)</span>
-</span><span class='line'>    <span class="k">AND</span> <span class="n">DateColumn</span> <span class="o">&lt;</span> <span class="n">DATEADD</span><span class="p">(</span><span class="n">dd</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">DATEADD</span><span class="p">(</span><span class="n">qq</span><span class="p">,</span><span class="n">DATEDIFF</span><span class="p">(</span><span class="n">qq</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">GETDATE</span><span class="p">()),</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
-</span></code></pre></td></tr></table></div></figure>
+<div class="entry-content"><ul>
+<li><p>44 questions, with 2 hours provided to answer the questions and a 700 score needed to pass</p></li>
+<li><p>To study I primarily used the official training kit (<a href="http://www.amazon.com/Training-Kit-Exam-70-461-Microsoft/dp/0735666059">Amazon link</a>) and drew from what I learned on the job writing queries for 9 months.</p></li>
+<li><p>Learned a lot from the book, but practice tests on the included CD were WORTHLESS in preparing for the test.  The only two points they helped on 1) Make sure you pay attention to the actual question asked (e.g. if it asks for a <code>MAX</code> don&rsquo;t choose the answer with an <code>AVG</code>), and 2) some of the questions/answers deal with vocabulary terms you should become familiar with (transaction isolation levels for me).  The thing that bothered me most about the CD practice test: its ease makes you underestimate the real test.</p></li>
+<li><p><a href="https://www.microsoft.com/learning/en-us/exam-70-461.aspx#skills">Microsoft&rsquo;s outline</a> really does a good job of laying out what to expect.  The areas I really struggled with were a lot of things I use infrequently or have never used: Triggers, transaction isolation levels, XML output.  I&rsquo;ve pasted in the MS study outline and <strong>bolded</strong> parts that I think would have helped a bunch had I been more familiar with them.</p></li>
+</ul>
 
 
-<p>You may be wondering &lsquo;why not just compare the quarter and year of the DateColumn to the current date?&rsquo; e.g. <code>WHERE YEAR(DateColumn) = YEAR(GETDATE()) AND DATEPART(QUARTER,DateColumn) = DATEPART(QUARTER,GETDATE())</code>  You can do that and it works fine for small datasets, but using functions on your column in a <code>WHERE</code> clause will result in a non-<a href="http://en.wikipedia.org/wiki/Sargable">sargable</a> query, meaning it can&rsquo;t take advantage of an index on <code>DateColumn</code>.  So go with the uglier, sargable query if you are looking to optimize performance.<sup id="fnref:1"><a href="#fn:1" rel="footnote">1</a></sup></p>
-<div class="footnotes">
-<hr/>
-<ol>
-<li id="fn:1">
-<p>I think sargability is a super interesting optimization topic.  In case you were curious, sargable is short for Search ARGument ABLE, and here&rsquo;s a few more articles on the topic if you would like to know more: <a href="http://msmvps.com/blogs/robfarley/archive/2010/01/22/sargable-functions-in-sql-server.aspx">Sargable functions in SQL Server by Rob Farley</a> and <a href="http://stackoverflow.com/q/799584/1657324">stackoverflow: what makes a sql statement sargable</a>.<a href="#fnref:1" rev="footnote">&#8617;</a></p></li>
-</ol>
-</div>
+<h2>Create database objects (24%)</h2>
+
+<ul>
+<li>Create and alter tables using T-SQL syntax (simple statements)
+
+<ul>
+<li>Create tables without using the built in tools; ALTER; DROP; ALTER COLUMN; CREATE</li>
+</ul>
+</li>
+<li>Create and alter views (simple statements)
+
+<ul>
+<li>Create indexed views; create views without using the built in tools; CREATE, ALTER, DROP</li>
+</ul>
+</li>
+<li>Design views
+
+<ul>
+<li>Ensure code non regression by keeping consistent signature for procedure, views and function (interfaces); security implications</li>
+</ul>
+</li>
+<li>Create and modify constraints (simple statements)
+
+<ul>
+<li>Create constraints on tables; define constraints; unique constraints; default constraints; primary and foreign key constraints</li>
+</ul>
+</li>
+<li>Create and alter DML triggers.
+
+<ul>
+<li><strong>Inserted and deleted tables; nested triggers; types of triggers</strong>; update functions; handle multiple rows in a session; performance implications of triggers</li>
+</ul>
+</li>
+</ul>
+
+
+<h2>Work with data (27%)</h2>
+
+<ul>
+<li>Query data by using SELECT statements
+
+<ul>
+<li>Use the ranking function to select top(X) rows for multiple categories in a single query; write and perform queries efficiently using the new (SQL 2005/8->) code items such as synonyms, and joins (<strong>except, intersect</strong>); implement logic which uses dynamic SQL and system metadata; write efficient, technically complex SQL queries, including all types of joins versus the use of derived tables; determine what code may or may not execute based on the tables provided; given a table with constraints, determine which statement set would load a table; use and understand different data access technologies; case versus isnull versus coalesce</li>
+</ul>
+</li>
+<li>Implement sub-queries
+
+<ul>
+<li>Identify problematic elements in query plans; pivot and unpivot; apply operator; cte statement; with statement</li>
+</ul>
+</li>
+<li>Implement data types
+
+<ul>
+<li>Use appropriate data; understand the uses and limitations of each data type; impact of GUID (newid, newsequentialid) on database performance, when to use what data type for columns</li>
+</ul>
+</li>
+<li>Implement aggregate queries
+
+<ul>
+<li><strong>New analytic functions; grouping sets; spatial aggregates; apply ranking functions</strong></li>
+</ul>
+</li>
+<li>Query and manage XML data
+
+<ul>
+<li><strong>Understand XML datatypes and their schemas</strong> and interop w/, limitations and restrictions; implement XML schemas and handling of XML data; XML data: how to handle it in SQL Server and when and when not to use it, including XML namespaces; import and export XML; XML indexing</li>
+</ul>
+</li>
+</ul>
+
+
+<h2>Modify data (24%)</h2>
+
+<ul>
+<li>Create and alter stored procedures (simple statements)
+
+<ul>
+<li>Write a stored procedure to meet a given set of requirements; branching logic; create stored procedures and other programmatic objects; techniques for developing stored procedures; different types of storeproc result; create stored procedure for data access layer; program stored procedures, triggers, functions with T-SQL</li>
+</ul>
+</li>
+<li>Modify data by using INSERT, UPDATE, and DELETE statements
+
+<ul>
+<li>Given a set of code with defaults, constraints, and triggers, determine the output of a set of DDL; <strong>know which SQL statements are best to solve common requirements; use output statement</strong></li>
+</ul>
+</li>
+<li>Combine datasets
+
+<ul>
+<li><strong>Difference between UNION and UNION all</strong>; case versus isnull versus coalesce; modify data by using MERGE statements</li>
+</ul>
+</li>
+<li>Work with functions
+
+<ul>
+<li>Understand deterministic, non-deterministic functions; <strong>scalar and table values</strong>; apply built-in scalar functions; create and alter user-defined functions (UDFs)</li>
+</ul>
+</li>
+</ul>
+
+
+<h2>Troubleshoot and optimize (25%)</h2>
+
+<ul>
+<li>Optimize queries
+
+<ul>
+<li>Understand statistics; read query plans; plan guides; DMVs; hints; statistics IO; dynamic vs. parameterized queries; describe the different join types (HASH, MERGE, LOOP) and describe the scenarios they would be used in</li>
+</ul>
+</li>
+<li>Manage transactions
+
+<ul>
+<li>Mark a transaction; understand begin tran, commit, and rollback; implicit vs explicit transactions; <strong>isolation levels</strong>; scope and type of locks; trancount</li>
+</ul>
+</li>
+<li>Evaluate the use of row-based operations vs. set-based operations
+
+<ul>
+<li>When to use cursors; <strong>impact of scalar UDFs</strong>; combine multiple DML operations</li>
+</ul>
+</li>
+<li>Implement error handling
+
+<ul>
+<li><strong>Implement try/catch/throw</strong>; use set based rather than row based logic; transaction management</li>
+</ul>
+</li>
+</ul>
 
 </div>
 
@@ -148,12 +266,12 @@
   
 
 
-<time datetime="2013-12-19T01:43:38-07:00" pubdate data-updated="true">Dec 19<span>th</span>, 2013</time>
+<time datetime="2014-05-01T16:02:08-06:00" pubdate data-updated="true">May 1<span>st</span>, 2014</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/sql/'>SQL</a>
+    <a class='category' href='/blog/categories/t-sql/'>T-SQL</a>
   
 </span>
 
@@ -173,10 +291,8 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2013/12/13/customizing-octopress/" title="Previous Post: Customizing Octopress">&laquo; Customizing Octopress</a>
+        <a class="basic-alignment left" href="/blog/2014/03/28/t-sql-tips-transition-school-to-industry/" title="Previous Post: T-SQL Tips for Transitioning from School to Industry">&laquo; T-SQL Tips for Transitioning from School to Industry</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2014/03/28/t-sql-tips-transition-school-to-industry/" title="Next Post: T-SQL Tips for Transitioning from School to Industry">T-SQL Tips for Transitioning from School to Industry &raquo;</a>
       
     </p>
   </footer>
@@ -280,8 +396,8 @@
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://fountless.github.io/blog/2013/12/19/t-sql-date-range-from-current-quarter/';
-        var disqus_url = 'http://fountless.github.io/blog/2013/12/19/t-sql-date-range-from-current-quarter/';
+        var disqus_identifier = 'http://fountless.github.io/blog/2014/05/01/quick-thoughts-after-taking-microsoft-exam-70-461/';
+        var disqus_url = 'http://fountless.github.io/blog/2014/05/01/quick-thoughts-after-taking-microsoft-exam-70-461/';
         var disqus_script = 'embed.js';
       
     (function () {

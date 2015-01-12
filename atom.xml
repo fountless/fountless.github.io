@@ -4,7 +4,7 @@
   <title><![CDATA[+1 to BI]]></title>
   <link href="http://fountless.github.io/atom.xml" rel="self"/>
   <link href="http://fountless.github.io/"/>
-  <updated>2014-01-13T01:33:40-07:00</updated>
+  <updated>2015-01-12T02:13:30-07:00</updated>
   <id>http://fountless.github.io/</id>
   <author>
     <name><![CDATA[Stu Baker]]></name>
@@ -14,11 +14,344 @@
 
   
   <entry>
+    <title type="html"><![CDATA[Quick Thoughts After Taking Microsoft Exam 70-461]]></title>
+    <link href="http://fountless.github.io/blog/2014/05/01/quick-thoughts-after-taking-microsoft-exam-70-461/"/>
+    <updated>2014-05-01T16:02:08-06:00</updated>
+    <id>http://fountless.github.io/blog/2014/05/01/quick-thoughts-after-taking-microsoft-exam-70-461</id>
+    <content type="html"><![CDATA[<ul>
+<li><p>44 questions, with 2 hours provided to answer the questions and a 700 score needed to pass</p></li>
+<li><p>To study I primarily used the official training kit (<a href="http://www.amazon.com/Training-Kit-Exam-70-461-Microsoft/dp/0735666059">Amazon link</a>) and drew from what I learned on the job writing queries for 9 months.</p></li>
+<li><p>Learned a lot from the book, but practice tests on the included CD were WORTHLESS in preparing for the test.  The only two points they helped on 1) Make sure you pay attention to the actual question asked (e.g. if it asks for a <code>MAX</code> don&rsquo;t choose the answer with an <code>AVG</code>), and 2) some of the questions/answers deal with vocabulary terms you should become familiar with (transaction isolation levels for me).  The thing that bothered me most about the CD practice test: its ease makes you underestimate the real test.</p></li>
+<li><p><a href="https://www.microsoft.com/learning/en-us/exam-70-461.aspx#skills">Microsoft&rsquo;s outline</a> really does a good job of laying out what to expect.  The areas I really struggled with were a lot of things I use infrequently or have never used: Triggers, transaction isolation levels, XML output.  I&rsquo;ve pasted in the MS study outline and <strong>bolded</strong> parts that I think would have helped a bunch had I been more familiar with them.</p></li>
+</ul>
+
+
+<h2>Create database objects (24%)</h2>
+
+<ul>
+<li>Create and alter tables using T-SQL syntax (simple statements)
+
+<ul>
+<li>Create tables without using the built in tools; ALTER; DROP; ALTER COLUMN; CREATE</li>
+</ul>
+</li>
+<li>Create and alter views (simple statements)
+
+<ul>
+<li>Create indexed views; create views without using the built in tools; CREATE, ALTER, DROP</li>
+</ul>
+</li>
+<li>Design views
+
+<ul>
+<li>Ensure code non regression by keeping consistent signature for procedure, views and function (interfaces); security implications</li>
+</ul>
+</li>
+<li>Create and modify constraints (simple statements)
+
+<ul>
+<li>Create constraints on tables; define constraints; unique constraints; default constraints; primary and foreign key constraints</li>
+</ul>
+</li>
+<li>Create and alter DML triggers.
+
+<ul>
+<li><strong>Inserted and deleted tables; nested triggers; types of triggers</strong>; update functions; handle multiple rows in a session; performance implications of triggers</li>
+</ul>
+</li>
+</ul>
+
+
+<h2>Work with data (27%)</h2>
+
+<ul>
+<li>Query data by using SELECT statements
+
+<ul>
+<li>Use the ranking function to select top(X) rows for multiple categories in a single query; write and perform queries efficiently using the new (SQL 2005/8->) code items such as synonyms, and joins (<strong>except, intersect</strong>); implement logic which uses dynamic SQL and system metadata; write efficient, technically complex SQL queries, including all types of joins versus the use of derived tables; determine what code may or may not execute based on the tables provided; given a table with constraints, determine which statement set would load a table; use and understand different data access technologies; case versus isnull versus coalesce</li>
+</ul>
+</li>
+<li>Implement sub-queries
+
+<ul>
+<li>Identify problematic elements in query plans; pivot and unpivot; apply operator; cte statement; with statement</li>
+</ul>
+</li>
+<li>Implement data types
+
+<ul>
+<li>Use appropriate data; understand the uses and limitations of each data type; impact of GUID (newid, newsequentialid) on database performance, when to use what data type for columns</li>
+</ul>
+</li>
+<li>Implement aggregate queries
+
+<ul>
+<li><strong>New analytic functions; grouping sets; spatial aggregates; apply ranking functions</strong></li>
+</ul>
+</li>
+<li>Query and manage XML data
+
+<ul>
+<li><strong>Understand XML datatypes and their schemas</strong> and interop w/, limitations and restrictions; implement XML schemas and handling of XML data; XML data: how to handle it in SQL Server and when and when not to use it, including XML namespaces; import and export XML; XML indexing</li>
+</ul>
+</li>
+</ul>
+
+
+<h2>Modify data (24%)</h2>
+
+<ul>
+<li>Create and alter stored procedures (simple statements)
+
+<ul>
+<li>Write a stored procedure to meet a given set of requirements; branching logic; create stored procedures and other programmatic objects; techniques for developing stored procedures; different types of storeproc result; create stored procedure for data access layer; program stored procedures, triggers, functions with T-SQL</li>
+</ul>
+</li>
+<li>Modify data by using INSERT, UPDATE, and DELETE statements
+
+<ul>
+<li>Given a set of code with defaults, constraints, and triggers, determine the output of a set of DDL; <strong>know which SQL statements are best to solve common requirements; use output statement</strong></li>
+</ul>
+</li>
+<li>Combine datasets
+
+<ul>
+<li><strong>Difference between UNION and UNION all</strong>; case versus isnull versus coalesce; modify data by using MERGE statements</li>
+</ul>
+</li>
+<li>Work with functions
+
+<ul>
+<li>Understand deterministic, non-deterministic functions; <strong>scalar and table values</strong>; apply built-in scalar functions; create and alter user-defined functions (UDFs)</li>
+</ul>
+</li>
+</ul>
+
+
+<h2>Troubleshoot and optimize (25%)</h2>
+
+<ul>
+<li>Optimize queries
+
+<ul>
+<li>Understand statistics; read query plans; plan guides; DMVs; hints; statistics IO; dynamic vs. parameterized queries; describe the different join types (HASH, MERGE, LOOP) and describe the scenarios they would be used in</li>
+</ul>
+</li>
+<li>Manage transactions
+
+<ul>
+<li>Mark a transaction; understand begin tran, commit, and rollback; implicit vs explicit transactions; <strong>isolation levels</strong>; scope and type of locks; trancount</li>
+</ul>
+</li>
+<li>Evaluate the use of row-based operations vs. set-based operations
+
+<ul>
+<li>When to use cursors; <strong>impact of scalar UDFs</strong>; combine multiple DML operations</li>
+</ul>
+</li>
+<li>Implement error handling
+
+<ul>
+<li><strong>Implement try/catch/throw</strong>; use set based rather than row based logic; transaction management</li>
+</ul>
+</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[T-SQL Tips for Transitioning From School to Industry]]></title>
+    <link href="http://fountless.github.io/blog/2014/03/28/t-sql-tips-transition-school-to-industry/"/>
+    <updated>2014-03-28T15:53:57-06:00</updated>
+    <id>http://fountless.github.io/blog/2014/03/28/t-sql-tips-transition-school-to-industry</id>
+    <content type="html"><![CDATA[<p>It&rsquo;s been 9 months since I&rsquo;ve gone from a pure student who had only learned T-SQL in a classroom to someone who uses it everyday as a part of my job.  In that time I&rsquo;ve learned a few lessons that I think are worth sharing.</p>
+
+<p>How helpful this will be to you will of course depend upon the way your program chose to teach this subject, as well as your previous background experience.</p>
+
+<h2>Conditions on JOINs</h2>
+
+<p>With a standard <code>INNER JOIN</code>, you can list additional conditions after the <code>INNER JOIN</code> or in the <code>WHERE</code> clause and you&rsquo;ll have the same query generating the same results:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="c1">--Conditions in the WHERE clause</span>
+</span><span class='line'><span class="k">SELECT</span> <span class="o">*</span>
+</span><span class='line'><span class="k">FROM</span> <span class="n">People</span> <span class="k">AS</span> <span class="n">p</span>
+</span><span class='line'>    <span class="k">INNER</span> <span class="k">JOIN</span> <span class="n">Addresses</span> <span class="k">AS</span> <span class="n">a</span> <span class="k">ON</span> <span class="n">p</span><span class="p">.</span><span class="n">PeopleID</span> <span class="o">=</span> <span class="n">a</span><span class="p">.</span><span class="n">PeopleID</span>
+</span><span class='line'><span class="k">WHERE</span> <span class="n">p</span><span class="p">.</span><span class="n">LastName</span> <span class="o">=</span> <span class="s1">&#39;Baratheon&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">--Same query/results using conditions on the INNER JOIN</span>
+</span><span class='line'><span class="k">SELECT</span> <span class="o">*</span>
+</span><span class='line'><span class="k">FROM</span> <span class="n">People</span> <span class="k">AS</span> <span class="n">p</span>
+</span><span class='line'>    <span class="k">INNER</span> <span class="k">JOIN</span> <span class="n">Addresses</span> <span class="k">AS</span> <span class="n">a</span> <span class="k">ON</span> <span class="n">p</span><span class="p">.</span><span class="n">PeopleID</span> <span class="o">=</span> <span class="n">a</span><span class="p">.</span><span class="n">PeopleID</span>
+</span><span class='line'>        <span class="k">AND</span> <span class="n">p</span><span class="p">.</span><span class="n">LastName</span> <span class="o">=</span> <span class="s1">&#39;Baratheon&#39;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>However, when working with an <code>OUTER JOIN</code>, conditions in the <code>WHERE</code> clause and conditions on the <code>OUTER JOIN</code> can result in very different results:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="c1">--Conditions in the WHERE clause</span>
+</span><span class='line'><span class="k">SELECT</span> <span class="o">*</span>
+</span><span class='line'><span class="k">FROM</span> <span class="n">People</span> <span class="k">AS</span> <span class="n">p</span>
+</span><span class='line'>    <span class="k">LEFT</span> <span class="k">JOIN</span> <span class="n">Addresses</span> <span class="k">AS</span> <span class="n">a</span> <span class="k">ON</span> <span class="n">p</span><span class="p">.</span><span class="n">PeopleID</span> <span class="o">=</span> <span class="n">a</span><span class="p">.</span><span class="n">PeopleID</span>
+</span><span class='line'><span class="k">WHERE</span> <span class="n">p</span><span class="p">.</span><span class="n">LastName</span> <span class="o">=</span> <span class="s1">&#39;Baratheon&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">--Very different using conditions on the LEFT JOIN</span>
+</span><span class='line'><span class="k">SELECT</span> <span class="o">*</span>
+</span><span class='line'><span class="k">FROM</span> <span class="n">People</span> <span class="k">AS</span> <span class="n">p</span>
+</span><span class='line'>    <span class="k">LEFT</span> <span class="k">JOIN</span> <span class="n">Addresses</span> <span class="k">AS</span> <span class="n">a</span> <span class="k">ON</span> <span class="n">p</span><span class="p">.</span><span class="n">PeopleID</span> <span class="o">=</span> <span class="n">a</span><span class="p">.</span><span class="n">PeopleID</span>
+</span><span class='line'>        <span class="k">AND</span> <span class="n">p</span><span class="p">.</span><span class="n">LastName</span> <span class="o">=</span> <span class="s1">&#39;Baratheon&#39;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The key difference here is that the <code>WHERE</code> clause filters (removes) rows, while the condition on the join specifies that all rows from the left table should be returned but data from the right table should only be displayed when the two conditions (PeopleID and LastName = &lsquo;Baratheon&rsquo;) match.</p>
+
+<p>Using our examples above, the first with the <code>WHERE</code> clause will <code>LEFT JOIN</code> Addresses to People and will then remove all rows where the LastName is not &lsquo;Baratheon&rsquo;.  Our second example with the condition on the join will <code>LEFT JOIN</code> Addresses to People but will display all rows in the People table and only show addresses when LastName is &lsquo;Baratheon&rsquo;.  Here is an <a href="http://sqlfiddle.com/#!3/39efc/5">SQL Fiddle</a> where you can see some example output.  <a href="http://sqlfiddle.com/#!3/39efc/6">Query 1</a> gives us two rows (for Robert and Joffrey Baratheon) with an address for Robert, while <a href="http://sqlfiddle.com/#!3/39efc/5">query 2</a> lists all People but again only lists an address for Robert.</p>
+
+<p>The main point to note: though these queries look similar, their results are vastly different.</p>
+
+<h2>Be careful with <code>NOT</code> and &lt;></h2>
+
+<p>Sometimes you forget a little of the theory that you are drilled on in school when putting knowledge into practice.  Case in point for me was the use of <code>NOT</code>.  When I first started out writing queries at my job, it seemed like the simplest thing in the world when someone asked to see all results except for one or two particular types.  I would just throw my <code>NOT IN</code> in the <code>WHERE</code> clause and go on my merry way.  However, remember in SQL we are working with 3-valued logic which means that an expression can evaluate to true, false or undefined.  Due to this, I started to run into problems when I used a <code>NOT</code> on columns that could contain <code>NULL</code>s, because when you compare NULL to any value the result is undefined and that row is not included in your result set.</p>
+
+<p>Example time: here is another <a href="http://sqlfiddle.com/#!3/f7197b/1">SQL Fiddle</a> listing a few US Presidents and their first, middle, and last names.  When we run our query for presidents who do not have a middle name of Jefferson (using <code>WHERE MiddleName NOT IN ('Jefferson')</code>), we don&rsquo;t quite get what we expect.  Why?  Because we are working with 3-valued logic, and comparing NULL to a value results in undefined and will not include that row in our result set.  So since Abe and Woodrow Wilson do not have middle names, we do not see them in our results.  This is a very simple example (and one easily corrected by adding <code>OR MiddleName IS NULL</code> to our <code>WHERE</code> clause), but often you will have more complicated problems involving multiple tables when you want to use <code>NOT</code>.  My go-to solution in these situations is to use a <code>LEFT JOIN</code>:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="c1">--Using LEFT JOIN instead of NOT keyword</span>
+</span><span class='line'><span class="k">SELECT</span> <span class="n">p1</span><span class="p">.</span><span class="n">FirstName</span><span class="p">,</span> <span class="n">p1</span><span class="p">.</span><span class="n">MiddleName</span><span class="p">,</span> <span class="n">p1</span><span class="p">.</span><span class="n">LastName</span>
+</span><span class='line'><span class="k">FROM</span> <span class="n">Presidents</span> <span class="k">AS</span> <span class="n">p1</span>
+</span><span class='line'>    <span class="k">LEFT</span> <span class="k">JOIN</span> <span class="n">Presidents</span> <span class="k">AS</span> <span class="n">p2</span> <span class="k">ON</span> <span class="p">(</span><span class="n">p1</span><span class="p">.</span><span class="n">PresidentID</span> <span class="o">=</span> <span class="n">p2</span><span class="p">.</span><span class="n">PresidentID</span><span class="p">)</span>
+</span><span class='line'>        <span class="k">AND</span> <span class="n">p2</span><span class="p">.</span><span class="n">MiddleName</span> <span class="o">=</span> <span class="s1">&#39;Jefferson&#39;</span>
+</span><span class='line'><span class="k">WHERE</span> <span class="n">p2</span><span class="p">.</span><span class="n">PresidentID</span> <span class="k">IS</span> <span class="k">NULL</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>There are several other options you can use (here are a <a href="http://www.dbatodba.com/sql-server/how-tos/typical-solutions-to-avoid-using-not-in-on-sql-server/">few more solutions</a> to try).</p>
+
+<h2>Some developers alias without the keyword <code>AS</code></h2>
+
+<p>When you are trying to find a solution to a problem by searching online, you can quickly get confused by the coding styles some developers use.  The biggest one for me was that the <code>AS</code> keyword for aliasing is optional and some developers do not choose to use it.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="c1">--Optional AS for aliasing can get confusing</span>
+</span><span class='line'><span class="k">SELECT</span> <span class="n">peep</span><span class="p">.</span><span class="n">FirstName</span> <span class="n">GivenName</span><span class="p">,</span> <span class="n">peep</span><span class="p">.</span><span class="n">LastName</span> <span class="n">SurName</span><span class="p">,</span> <span class="n">addr</span><span class="p">.</span><span class="n">Street</span> <span class="n">HighRoad</span><span class="p">,</span> <span class="n">addr</span><span class="p">.</span><span class="n">City</span> <span class="n">Castle</span><span class="p">,</span> <span class="n">addr</span><span class="p">.</span><span class="k">State</span> <span class="n">Continent</span>
+</span><span class='line'><span class="k">FROM</span> <span class="n">People</span> <span class="n">peep</span>
+</span><span class='line'>    <span class="k">INNER</span> <span class="k">JOIN</span> <span class="n">Addresses</span> <span class="n">addr</span> <span class="k">ON</span> <span class="n">peep</span><span class="p">.</span><span class="n">PeopleID</span> <span class="o">=</span> <span class="n">addr</span><span class="p">.</span><span class="n">PeopleID</span>
+</span><span class='line'><span class="k">WHERE</span> <span class="n">peep</span><span class="p">.</span><span class="n">LastName</span> <span class="o">=</span> <span class="s1">&#39;Stark&#39;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>You can puzzle this mess out if you&rsquo;ve been developing for a while, but as a relative beginner this can start to look like gibberish in a hurry.  While there is little you can do to fix most of the examples on the internet, I&rsquo;d encourage you to continue using <code>AS</code> for aliasing even as you improve your query writing.  Think of it as a way to pay it forward to future students who will use your code to learn.  So to make the above a little more clear:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="c1">--AS for aliasing = good!</span>
+</span><span class='line'><span class="k">SELECT</span> <span class="n">peep</span><span class="p">.</span><span class="n">FirstName</span> <span class="k">AS</span> <span class="n">GivenName</span><span class="p">,</span> <span class="n">peep</span><span class="p">.</span><span class="n">LastName</span> <span class="k">AS</span> <span class="n">SurName</span><span class="p">,</span> <span class="n">addr</span><span class="p">.</span><span class="n">Street</span> <span class="k">AS</span> <span class="n">HighRoad</span><span class="p">,</span> <span class="n">addr</span><span class="p">.</span><span class="n">City</span> <span class="k">AS</span> <span class="n">Castle</span><span class="p">,</span> <span class="n">addr</span><span class="p">.</span><span class="k">State</span> <span class="k">AS</span> <span class="n">Continent</span>
+</span><span class='line'><span class="k">FROM</span> <span class="n">People</span> <span class="k">AS</span> <span class="n">peep</span>
+</span><span class='line'>    <span class="k">INNER</span> <span class="k">JOIN</span> <span class="n">Addresses</span> <span class="k">AS</span> <span class="n">addr</span> <span class="k">ON</span> <span class="n">peep</span><span class="p">.</span><span class="n">PeopleID</span> <span class="o">=</span> <span class="n">addr</span><span class="p">.</span><span class="n">PeopleID</span>
+</span><span class='line'><span class="k">WHERE</span> <span class="n">peep</span><span class="p">.</span><span class="n">LastName</span> <span class="o">=</span> <span class="s1">&#39;Stark&#39;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Using the <code>APPLY</code> operator</h2>
+
+<p>I learned how to use the <code>APPLY</code> operator my first day on the job, and I&rsquo;ve been amazed since then that it was never covered in my formal education.  You can attempt to make sense of the <a href="http://technet.microsoft.com/en-us/library/ms175156.aspx">MSDN article on Using APPLY</a>, but I typically use it in a simple way: if I&rsquo;m looking to use a <code>TOP 1</code> subquery in my <code>SELECT</code> clause, then it&rsquo;s time to use an <code>APPLY</code>.  But why bother you ask?  One word: performance.  Whenever I&rsquo;ve compared execution times and plans, the version with the <code>APPLY</code> outperforms a <code>TOP 1</code> subquery almost every time.</p>
+
+<p>Going back to our people and addresses example from earlier, I&rsquo;ve added a column, IsPreferred, for people with multiple addresses.  Now using a typical <code>TOP 1</code> subquery, our query would look like this: <a href="http://sqlfiddle.com/#!3/42ceb/1">SQL Fiddle</a></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="c1">--TOP 1 subquery</span>
+</span><span class='line'><span class="k">SELECT</span> <span class="n">p</span><span class="p">.</span><span class="n">FirstName</span>
+</span><span class='line'>    <span class="p">,</span> <span class="n">p</span><span class="p">.</span><span class="n">LastName</span>
+</span><span class='line'>    <span class="p">,</span> <span class="p">(</span><span class="k">SELECT</span> <span class="n">TOP</span> <span class="mi">1</span> <span class="n">Street</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="n">City</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="k">State</span>
+</span><span class='line'>       <span class="k">FROM</span> <span class="n">Addresses</span> <span class="k">AS</span> <span class="n">a</span>
+</span><span class='line'>       <span class="k">WHERE</span> <span class="n">a</span><span class="p">.</span><span class="n">PeopleID</span> <span class="o">=</span> <span class="n">p</span><span class="p">.</span><span class="n">PeopleID</span>
+</span><span class='line'>       <span class="k">ORDER</span> <span class="k">BY</span> <span class="n">a</span><span class="p">.</span><span class="n">IsPreferred</span><span class="p">)</span> <span class="k">AS</span> <span class="n">Address</span>
+</span><span class='line'><span class="k">FROM</span> <span class="n">People</span> <span class="k">AS</span> <span class="n">p</span>
+</span><span class='line'><span class="k">WHERE</span> <span class="n">p</span><span class="p">.</span><span class="n">LastName</span> <span class="o">=</span> <span class="s1">&#39;Stark&#39;</span>
+</span><span class='line'>    <span class="k">AND</span> <span class="n">p</span><span class="p">.</span><span class="n">FirstName</span> <span class="o">=</span> <span class="s1">&#39;Ned&#39;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now here&rsquo;s the <code>APPLY</code> version: <a href="http://sqlfiddle.com/#!3/42ceb/2">SQL Fiddle</a>:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="c1">--Using APPLY</span>
+</span><span class='line'><span class="k">SELECT</span> <span class="n">p</span><span class="p">.</span><span class="n">FirstName</span>
+</span><span class='line'>    <span class="p">,</span> <span class="n">p</span><span class="p">.</span><span class="n">LastName</span>
+</span><span class='line'>    <span class="p">,</span> <span class="n">addr</span><span class="p">.</span><span class="n">Address</span>
+</span><span class='line'><span class="k">FROM</span> <span class="n">People</span> <span class="k">AS</span> <span class="n">p</span>
+</span><span class='line'>    <span class="k">OUTER</span> <span class="n">APPLY</span><span class="p">(</span><span class="k">SELECT</span> <span class="n">TOP</span> <span class="mi">1</span> <span class="n">Street</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="n">City</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="k">State</span> <span class="k">AS</span> <span class="n">Address</span>
+</span><span class='line'>                <span class="k">FROM</span> <span class="n">Addresses</span> <span class="k">AS</span> <span class="n">a</span>
+</span><span class='line'>                <span class="k">WHERE</span> <span class="n">a</span><span class="p">.</span><span class="n">PeopleID</span> <span class="o">=</span> <span class="n">p</span><span class="p">.</span><span class="n">PeopleID</span>
+</span><span class='line'>                <span class="k">ORDER</span> <span class="k">BY</span> <span class="n">a</span><span class="p">.</span><span class="n">IsPreferred</span><span class="p">)</span> <span class="k">AS</span> <span class="n">addr</span>
+</span><span class='line'><span class="k">WHERE</span> <span class="n">p</span><span class="p">.</span><span class="n">LastName</span> <span class="o">=</span> <span class="s1">&#39;Stark&#39;</span>
+</span><span class='line'>    <span class="k">AND</span> <span class="n">p</span><span class="p">.</span><span class="n">FirstName</span> <span class="o">=</span> <span class="s1">&#39;Ned&#39;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>These two queries look very similar, so you may be wondering why one is generally more performant than the other.  Part of the difference is due to the order of statement execution.  <code>SELECT</code> is one of the last clauses that get processed, so any subqueries in the <code>SELECT</code> list will take place well after the <code>FROM</code> and <code>WHERE</code> clauses have been processed.  But the <code>APPLY</code> version moves this subquery to the <code>FROM</code> clause, meaning it is executed very early and gives the query optimizer a lot more flexibility to produce an ideal execution plan.  (For a more complete list of the order of statement execution, see <a href="http://blog.sqlauthority.com/2009/04/06/sql-server-logical-query-processing-phases-order-of-statement-execution/">SQL Authority</a>).</p>
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[T-SQL Date Range From the Current Quarter]]></title>
     <link href="http://fountless.github.io/blog/2013/12/19/t-sql-date-range-from-current-quarter/"/>
     <updated>2013-12-19T01:43:38-07:00</updated>
     <id>http://fountless.github.io/blog/2013/12/19/t-sql-date-range-from-current-quarter</id>
-    <content type="html"><![CDATA[<p>A <a href="http://stackoverflow.com/q/20672016/1657324">recent question on StackOverflow</a> got me pondering about dates and quarters.  The user wanted to return data where the date is in the current quarter.  After some Google searches, I found this great solution to <a href="http://www.sqlservercurry.com/2009/05/find-first-and-last-day-of-current.html">find the first and last day of the quarter</a> from SQL Server Curry.  From there I just added 1 day to the last day of the quarter (to make sure we are truly capturing all date/time values in the quarter) and put it all in the <code>WHERE</code> clause:</p>
+    <content type="html"><![CDATA[<p>A <a href="http://stackoverflow.com/q/20672016/1657324">recent question on StackOverflow</a> got me pondering about dates and quarters.  The user wanted to return data where the date is in the current quarter.  After some Google searches, I found this great solution to <a href="http://www.sqlservercurry.com/2009/05/find-first-and-last-day-of-current.html">find the first and last day of the quarter</a> from SQL Server Curry.  From there I just added 1 day to the last day of the quarter (to make sure we are <a href="http://www.kebabshopblues.co.uk/2009/08/30/one-second-to-midnight-datetimes-in-sql-server-2005/">truly capturing all date/time values</a> in the quarter) and put it all in the <code>WHERE</code> clause:</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
